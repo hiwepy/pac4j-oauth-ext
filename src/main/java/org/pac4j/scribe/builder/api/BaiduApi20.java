@@ -9,19 +9,19 @@ import com.github.scribejava.core.model.Verb;
 /**
  * http://developer.baidu.com/wiki/index.php?title=docs/oauth/authorization
  */
-public class BaiduApi21 extends DefaultApi20 {
+public class BaiduApi20 extends DefaultApi20 {
 		
 	public static final String AUTHORIZE_URL = "http://openapi.baidu.com/oauth/2.0/authorize";
 	public static final String ACCESS_TOKEN_URL = "https://openapi.baidu.com/oauth/2.0/token";
 
-	protected BaiduApi21() {
+	protected BaiduApi20() {
 	}
 
 	private static class InstanceHolder {
-		private static final BaiduApi21 INSTANCE = new BaiduApi21();
+		private static final BaiduApi20 INSTANCE = new BaiduApi20();
 	}
 
-	public static BaiduApi21 instance() {
+	public static BaiduApi20 instance() {
 		return InstanceHolder.INSTANCE;
 	}
 
