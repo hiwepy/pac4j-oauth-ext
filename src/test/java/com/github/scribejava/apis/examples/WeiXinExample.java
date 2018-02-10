@@ -1,6 +1,3 @@
-/*
- * 版权所有.(c)2008-2018. 极蚁网络工作室 (http://jeebiz.net).
- */
 package com.github.scribejava.apis.examples;
 
 import org.pac4j.core.util.CommonHelper;
