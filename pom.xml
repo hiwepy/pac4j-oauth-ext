@@ -9,13 +9,20 @@
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<commons-lang3.version>3.6</commons-lang3.version>
 		<pac4j.version>2.2.1</pac4j.version>
 		<scribejava.version>3.4.1</scribejava.version>
 		<fastjson.version>1.2.46</fastjson.version>
 	</properties>
 	
 	<dependencies>
-
+		
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons-lang3.version}</version>
+		</dependency>
+		
 		<dependency>
             <groupId>org.pac4j</groupId>
             <artifactId>pac4j-oauth</artifactId>
@@ -61,9 +68,9 @@
 					<configuration>
 						<defaultLibBundleDir>lib</defaultLibBundleDir>
 						<!-- 源代码编译版本 -->
-						<source>1.7</source>
+						<source>1.8</source>
 						<!-- 目标平台编译版本 -->
-						<target>1.7</target>
+						<target>1.8</target>
 						<!-- 字符集编码 -->
 						<encoding>${project.build.sourceEncoding}</encoding>
 						<!--  -->

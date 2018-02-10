@@ -1,18 +1,14 @@
 package org.pac4j.oauth.client;
 
 import org.pac4j.core.context.WebContext;
-import org.pac4j.oauth.profile.sina.SinaWeboProfile;
+import org.pac4j.oauth.profile.sina.SinaWeiboProfile;
+import org.pac4j.oauth.profile.sina.SinaWeiboProfileCreator;
 import org.pac4j.oauth.profile.sina.SinaWeiboProfileDefinition;
 
 import com.github.scribejava.apis.SinaWeiboApi20;
 
-public class SinaWeiboClient extends OAuth20Client<SinaWeboProfile> {
+public class SinaWeiboClient extends OAuth20Client<SinaWeiboProfile> {
 
-    public final static String DEFAULT_SCOPE = "test";
-
-    private String scope = DEFAULT_SCOPE;
-    private String logoutUrl;
-    
     public SinaWeiboClient() {
     }
 
@@ -26,26 +22,10 @@ public class SinaWeiboClient extends OAuth20Client<SinaWeboProfile> {
        
     	configuration.setApi(SinaWeiboApi20.instance());
         configuration.setProfileDefinition(new SinaWeiboProfileDefinition());
-        configuration.setScope(this.scope);
         setConfiguration(configuration);
-
+        defaultProfileCreator(new SinaWeiboProfileCreator(configuration));
+        
         super.clientInit(context);
     }
-
-    public String getScope() {
-        return this.scope;
-    }
-
-    public void setScope(final String scope) {
-        this.scope = scope;
-    }
-
-	public String getLogoutUrl() {
-		return logoutUrl;
-	}
-
-	public void setLogoutUrl(String logoutUrl) {
-		this.logoutUrl = logoutUrl;
-	}
 
 }

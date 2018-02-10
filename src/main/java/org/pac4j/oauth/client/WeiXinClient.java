@@ -3,6 +3,7 @@ package org.pac4j.oauth.client;
 import org.pac4j.core.context.WebContext;
 import org.pac4j.oauth.profile.weixin.WeiXinProfile;
 import org.pac4j.oauth.profile.weixin.WeiXinProfileDefinition;
+import org.pac4j.oauth.profile.weixin.WeiXinProfileCreator;
 import org.pac4j.scribe.builder.api.WeiXinApi20;
 
 /**
@@ -10,14 +11,11 @@ import org.pac4j.scribe.builder.api.WeiXinApi20;
  */
 public class WeiXinClient extends OAuth20Client<WeiXinProfile> {
 
-	public final static String DEFAULT_SCOPE = "test";
-
-	private String scope = DEFAULT_SCOPE;
-	private String logoutUrl;
+	public final static String DEFAULT_SCOPE = "snsapi_login";
 
 	public WeiXinClient() {
 	}
-
+	
 	public WeiXinClient(final String key, final String secret) {
 		setKey(key);
 		setSecret(secret);
@@ -28,26 +26,11 @@ public class WeiXinClient extends OAuth20Client<WeiXinProfile> {
 
 		configuration.setApi(WeiXinApi20.instance());
 		configuration.setProfileDefinition(new WeiXinProfileDefinition());
-		configuration.setScope(this.scope);
+		configuration.setScope(configuration.getScope() != null ? configuration.getScope(): DEFAULT_SCOPE);
 		setConfiguration(configuration);
-
+		defaultProfileCreator(new WeiXinProfileCreator(configuration));
+		
 		super.clientInit(context);
 	}
 
-	public String getScope() {
-		return this.scope;
-	}
-
-	public void setScope(final String scope) {
-		this.scope = scope;
-	}
-
-	public String getLogoutUrl() {
-		return logoutUrl;
-	}
-
-	public void setLogoutUrl(String logoutUrl) {
-		this.logoutUrl = logoutUrl;
-	}
-	
 }

@@ -1,5 +1,8 @@
 package org.pac4j.oauth.profile.weixin;
 
+import java.net.URI;
+import java.util.Locale;
+
 import org.pac4j.core.profile.Gender;
 import org.pac4j.oauth.profile.OAuth20Profile;
 
@@ -8,124 +11,89 @@ import org.pac4j.oauth.profile.OAuth20Profile;
  */
 public class WeiXinProfile extends OAuth20Profile {
 
-	public String openid = "";
-	// 用户在QQ空间的昵称。
-	public String nickname = "";
-	// 大小为30×30像素的QQ空间头像URL。
-	public String figureurl = "";
-	// 大小为50×50像素的QQ空间头像URL。
-	public String figureurl_1 = "";
-	// 大小为100×100像素的QQ空间头像URL。
-	public String figureurl_2 = "";
-	// 大小为40×40像素的QQ头像URL。
-	public String figureurl_qq_1 = "";
-	// 大小为100×100像素的QQ头像URL。需要注意，不是所有的用户都拥有QQ的100x100的头像，但40x40像素则是一定会有。
-	public String figureurl_qq_2 = "";
-	// 标识用户是否为黄钻用户（0：不是；1：是）
-	public int vip = 0;
-	// 标识用户是否为黄钻用户（0：不是；1：是）。
-	public int isYellowVip = 0;
-	// 黄钻等级
-	public int yellowVipLevel = 0;
-	// QQ等级
-	public int level = 0;
-	// 标识是否为年费黄钻用户（0：不是； 1：是）
-	public int isYellowYearVip = 0;
-
+	/**
+	 * 用户统一标识。针对一个微信开放平台帐号下的应用，同一用户的unionid是唯一的
+	 */
 	public String getOpenid() {
-		return openid;
+		return (String) getAttribute(WeiXinProfileDefinition.OPEN_ID);
+	}
+	
+	@Override
+	public String getFamilyName() {
+		return null;
 	}
 
-	public void setOpenid(String openid) {
-		this.openid = openid;
+	/**
+	 * 用户昵称
+	 */
+	@Override
+	public String getFirstName() {
+		return (String) getAttribute(WeiXinProfileDefinition.NICK_NAME);
 	}
 
-	public String getNickname() {
-		return nickname;
+	/**
+	 * 友好显示名称
+	 */
+	@Override
+	public String getDisplayName() {
+		return (String) getAttribute(WeiXinProfileDefinition.NICK_NAME);
 	}
 
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	@Override
+	public String getUsername() {
+		return (String) getAttribute(WeiXinProfileDefinition.NICK_NAME);
+	}
+	
+	@Override
+	public Gender getGender() {
+		return (Gender) getAttribute(WeiXinProfileDefinition.SEX);
 	}
 
-	public String getFigureurl() {
-		return figureurl;
+	@Override
+	public Locale getLocale() {
+		return null;
 	}
 
-	public void setFigureurl(String figureurl) {
-		this.figureurl = figureurl;
+	@Override
+	public URI getProfileUrl() {
+		return null;
 	}
 
-	public String getFigureurl_1() {
-		return figureurl_1;
+	/**
+	 * 用户头像，最后一个数值代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像），用户没有头像时该项为空
+	 */
+	@Override
+	public URI getPictureUrl() {
+		return (URI) getAttribute(WeiXinProfileDefinition.HEAD_IMG_URL);
 	}
 
-	public void setFigureurl_1(String figureurl_1) {
-		this.figureurl_1 = figureurl_1;
-	}
 
-	public String getFigureurl_2() {
-		return figureurl_2;
+	/**
+	 * 国家，如中国为CN
+	 */
+	public String getCountry() {
+		return (String) getAttribute(WeiXinProfileDefinition.COUNTRY);
 	}
-
-	public void setFigureurl_2(String figureurl_2) {
-		this.figureurl_2 = figureurl_2;
+	
+	/**
+	 * 普通用户个人资料填写的省份
+	 */
+	public String getProvince() {
+		return (String) getAttribute(WeiXinProfileDefinition.PROVINCE);
 	}
-
-	public String getFigureurl_qq_1() {
-		return figureurl_qq_1;
+	
+	/**
+	 * 普通用户个人资料填写的城市
+	 */
+	public String getCity() {
+		return (String) getAttribute(WeiXinProfileDefinition.CITY);
 	}
-
-	public void setFigureurl_qq_1(String figureurl_qq_1) {
-		this.figureurl_qq_1 = figureurl_qq_1;
-	}
-
-	public String getFigureurl_qq_2() {
-		return figureurl_qq_2;
-	}
-
-	public void setFigureurl_qq_2(String figureurl_qq_2) {
-		this.figureurl_qq_2 = figureurl_qq_2;
-	}
-
-	public int getVip() {
-		return vip;
-	}
-
-	public void setVip(int vip) {
-		this.vip = vip;
-	}
-
-	public int getIsYellowVip() {
-		return isYellowVip;
-	}
-
-	public void setIsYellowVip(int isYellowVip) {
-		this.isYellowVip = isYellowVip;
-	}
-
-	public int getYellowVipLevel() {
-		return yellowVipLevel;
-	}
-
-	public void setYellowVipLevel(int yellowVipLevel) {
-		this.yellowVipLevel = yellowVipLevel;
-	}
-
-	public int getLevel() {
-		return level;
-	}
-
-	public void setLevel(int level) {
-		this.level = level;
-	}
-
-	public int getIsYellowYearVip() {
-		return isYellowYearVip;
-	}
-
-	public void setIsYellowYearVip(int isYellowYearVip) {
-		this.isYellowYearVip = isYellowYearVip;
+	
+	/**
+	 * 用户特权信息，json数组，如微信沃卡用户为（chinaunicom）
+	 */
+	public String getPrivilege() {
+		return (String) getAttribute(WeiXinProfileDefinition.PRIVILEGE);
 	}
 
 }

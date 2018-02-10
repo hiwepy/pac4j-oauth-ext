@@ -12,9 +12,6 @@ public class QQClient extends OAuth20Client<QQProfile> {
 
 	public final static String DEFAULT_SCOPE = "get_user_info,list_album";
 
-	private String scope = DEFAULT_SCOPE;
-	private String logoutUrl;
-
 	public QQClient() {
 	}
 
@@ -28,26 +25,11 @@ public class QQClient extends OAuth20Client<QQProfile> {
 
 		configuration.setApi(QQApi20.instance());
 		configuration.setProfileDefinition(new QQProfileDefinition());
-		configuration.setScope(this.scope);
+		configuration.setScope(configuration.getScope() != null ? configuration.getScope(): DEFAULT_SCOPE);
 		setConfiguration(configuration);
 		defaultProfileCreator(new QQProfileCreator(configuration));
 		 
 		super.clientInit(context);
 	}
 
-	public String getScope() {
-		return this.scope;
-	}
-
-	public void setScope(final String scope) {
-		this.scope = scope;
-	}
-
-	public String getLogoutUrl() {
-		return logoutUrl;
-	}
-
-	public void setLogoutUrl(String logoutUrl) {
-		this.logoutUrl = logoutUrl;
-	}
 }
