@@ -1,34 +1,90 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<groupId>com.github.vindell</groupId>
 	<artifactId>pac4j-oauth-ext</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<name>${project.groupId}:${project.artifactId}</name>
+	<description>OAuth Extend For Pac4j</description>
+   	<url>https://github.com/vindell/${project.artifactId}</url>
 	<packaging>jar</packaging>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+
+	<scm>
+		<connection>scm:git:https:github.com/vindell/${project.artifactId}.git</connection>
+		<developerConnection>scm:git:https:github.com/vindell/${project.artifactId}.git</developerConnection>
+		<url>https:github.com/vindell/${project.artifactId}</url>
+		<tag>${project.artifactId}</tag>
+	</scm>
+
+	<developers>
+		<developer>
+			<name>vindell</name>
+			<email>hnxyhcwdl1003@163.com</email>
+			<roles>
+	            <role>developer</role>
+	        </roles>
+			<timezone>+8</timezone>
+		</developer>
+	</developers>
+	
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<name>Maven Central Staging Repository</name>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<commons-lang3.version>3.6</commons-lang3.version>
+		<fastjson.version>1.2.47</fastjson.version>
+		<java.version>1.8</java.version>
+		<maven.version>3.0</maven.version>
+        <maven-clean-plugin.version>3.0.0</maven-clean-plugin.version>
+        <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
+        <maven-dependency-plugin.version>3.0.1</maven-dependency-plugin.version>
+        <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
+        <maven-enforcer-plugin.version>3.0.0-M1</maven-enforcer-plugin.version>
+       	<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+        <maven-install-plugin.version>2.5.2</maven-install-plugin.version>
+        <maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
+        <maven-javadoc-plugin.version>3.0.0</maven-javadoc-plugin.version>
+        <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
+        <maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
+        <maven-surefire-plugin.vertsion>2.21.0</maven-surefire-plugin.vertsion>
+        <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+		<maven-nexus-staging-plugin.version>1.6.8</maven-nexus-staging-plugin.version>
 		<pac4j.version>2.2.1</pac4j.version>
 		<scribejava.version>3.4.1</scribejava.version>
-		<fastjson.version>1.2.46</fastjson.version>
 	</properties>
-	
+
 	<dependencies>
-		
+
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>${commons-lang3.version}</version>
 		</dependency>
-		
+
 		<dependency>
-            <groupId>org.pac4j</groupId>
-            <artifactId>pac4j-oauth</artifactId>
-            <version>${pac4j.version}</version>
-        </dependency>
-        
+			<groupId>org.pac4j</groupId>
+			<artifactId>pac4j-oauth</artifactId>
+			<version>${pac4j.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.github.scribejava</groupId>
 			<artifactId>scribejava-apis</artifactId>
@@ -39,269 +95,184 @@
 			<artifactId>scribejava-core</artifactId>
 			<version>${scribejava.version}</version>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
 		<dependency>
-		    <groupId>com.alibaba</groupId>
-		    <artifactId>fastjson</artifactId>
-		    <version>${fastjson.version}</version>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>${fastjson.version}</version>
 		</dependency>
 
 	</dependencies>
-	
+
 	<build>
-		<filters>  
-	        <!-- 过滤文件,通常是一个属性文件（名值对的形式） 
-	        <filter>src/main/webapp/META-INF/auto-config.properties</filter>  -->  
-	        <!-- 
-	            <filter>${user.home}/antx.properties</filter> 
-	        -->  
-	    </filters> 
 		<pluginManagement>
 			<plugins>
-				<!-- 编译插件：编译主代码至主输出目录 -->  
+				<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.6.1</version> 
-					<!-- 设置源文件编码方式 -->  
+					<version>${maven-compiler-plugin.version}</version>
 					<configuration>
 						<defaultLibBundleDir>lib</defaultLibBundleDir>
-						<!-- 源代码编译版本 -->
-						<source>1.8</source>
-						<!-- 目标平台编译版本 -->
-						<target>1.8</target>
-						<!-- 字符集编码 -->
+						<source>${java.version}</source>
+						<target>${java.version}</target>
 						<encoding>${project.build.sourceEncoding}</encoding>
-						<!--  -->
 						<maxmem>512M</maxmem>
 					</configuration>
 				</plugin>
-				<!-- 资源插件：复制主资源文件至主输出目录 -->
+				<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-deploy-plugin -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>${maven-deploy-plugin.version}</version>
+				</plugin>
+				<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-enforcer-plugin -->
+				<plugin>
+	                <groupId>org.apache.maven.plugins</groupId>
+	                <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>${maven-enforcer-plugin.version}</version>
+	                <executions>
+	                    <execution>
+	                        <id>default-cli</id>
+	                        <goals>
+	                            <goal>enforce</goal>
+	                        </goals>
+	                        <phase>validate</phase>
+	                        <configuration>
+	                            <rules>
+	                            	<requireMavenVersion>
+	                            		<message>
+	                                        <![CDATA[You are running an older version of Maven. This application requires at least Maven ${maven.version}.]]>
+	                                    </message>
+										<version>[${maven.version}.0,)</version>
+									</requireMavenVersion>
+	                                <requireJavaVersion>
+	                                    <message>
+	                                        <![CDATA[You are running an older version of Java. This application requires at least JDK ${java.version}.]]>
+	                                    </message>
+	                                    <version>[${java.version}.0,)</version>
+	                                </requireJavaVersion>
+	                            </rules>
+	                        </configuration>
+	                    </execution>
+	                </executions>
+	            </plugin>
+				<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-gpg-plugin -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-gpg-plugin</artifactId>
+					<version>${maven-gpg-plugin.version}</version>
+					<executions>
+						<execution>
+							<id>sign-artifacts</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>sign</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-install-plugin -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-install-plugin</artifactId>
+					<version>${maven-install-plugin.version}</version>
+				</plugin>
+				<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-resources-plugin -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-resources-plugin</artifactId>
-					<version>3.0.1</version>
-					<!-- 解决资源文件的编码问题 -->  
+					<version>${maven-resources-plugin.version}</version>
 					<configuration>
-						<!-- 字符集编码 -->
 						<encoding>${project.build.sourceEncoding}</encoding>
 					</configuration>
-					<!-- 复制测试资源文件至测试输出目录复制resources到classess -->
-					<executions>
-						<execution>
-							<id>copy-resources</id>
-							<phase>validate</phase>
-							<goals>
-								<goal>copy-resources</goal>
-							</goals>
-							<configuration>
-								<outputDirectory>${basedir}/target/classes</outputDirectory>
-								<resources>
-									<resource>
-										<directory>src/main/resources</directory>
-										<!-- <filtering>true</filtering> -->
-									</resource>
-								</resources>
-							</configuration>
-						</execution>
-					</executions>
 				</plugin>
+				<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-release-plugin -->
 				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>findbugs-maven-plugin</artifactId>
-					<version>3.0.4</version>
+				    <groupId>org.apache.maven.plugins</groupId>
+				    <artifactId>maven-release-plugin</artifactId>
+				    <version>${maven-release-plugin.version}</version>
+				    <configuration>
+	                   <autoVersionSubmodules>true</autoVersionSubmodules>
+	                   <useReleaseProfile>false</useReleaseProfile>
+	                   <releaseProfiles>release</releaseProfiles>
+	                   <goals>deploy</goals>
+	                 </configuration>
+				</plugin>
+				<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-source-plugin -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>${maven-source-plugin.version}</version>
+					<configuration>
+						<testFailureIgnore>true</testFailureIgnore>
+						<attach>true</attach>
+						<encoding>${project.build.sourceEncoding}</encoding>
+					</configuration>
 					<executions>
 						<execution>
-							<phase>verify</phase>
+							<id>attach-sources</id>
+							<phase>package</phase>
 							<goals>
-								<goal>check</goal>
+								<goal>jar-no-fork</goal>
 							</goals>
 						</execution>
 					</executions>
 				</plugin>
-				<!-- 单元测试插件 ：执行测试用例-->  
+				<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
-					<version>2.19.1</version>
+					<version>${maven-surefire-plugin.vertsion}</version>
 					<configuration>
 						<!-- 跳过单元测试 -->
 						<skip>true</skip>
 						<skipTests>true</skipTests>
-						<!--
-							forkMode 可设置值有 “never”， “once”， “always” 和 “pertest”。
-							pretest： 每一个测试创建一个新进程，为每个测试创建新的JVM是单独测试的最彻底方式，但也是最慢的，不适合hudson上持续回归。
-							once：在一个进程中进行所有测试。once为默认设置，在Hudson上持续回归时建议使用默认设置。
-							always：在一个进程中并行的运行脚本，Junit4.7以上版本才可以使用，surefire的版本要在2.6以上提供这个功能，其中 threadCount：执行时，指定可分配的线程数量。只和参数parallel配合使用有效。默认：5。
-						 -->
+						<!-- forkMode 可设置值有 “never”， “once”， “always” 和 “pertest”。 pretest： 
+							每一个测试创建一个新进程，为每个测试创建新的JVM是单独测试的最彻底方式，但也是最慢的，不适合hudson上持续回归。 once：在一个进程中进行所有测试。once为默认设置，在Hudson上持续回归时建议使用默认设置。 
+							always：在一个进程中并行的运行脚本，Junit4.7以上版本才可以使用，surefire的版本要在2.6以上提供这个功能，其中 threadCount：执行时，指定可分配的线程数量。只和参数parallel配合使用有效。默认：5。 -->
 						<forkMode>once</forkMode>
-						<argLine>-Xmx1024m -XX:PermSize=256m -XX:MaxPermSize=256m -Dfile.encoding=UTF-8</argLine> 
-						<additionalClasspathElements> 
-			                <additionalClasspathElement>${basedir}/target/test-classes</additionalClasspathElement>  
-			            </additionalClasspathElements>  
-			            <includes>  
-			                <include>**/*Test.java</include> 
-			            </includes> 
-                        <excludes>
-                            <exclude>**/TestBean.java</exclude>
-                        </excludes>
-					</configuration>					
+						<argLine>-Xmx1024m -XX:PermSize=256m -XX:MaxPermSize=256m -Dfile.encoding=UTF-8</argLine>
+						<additionalClasspathElements>
+							<additionalClasspathElement>${basedir}/target/test-classes</additionalClasspathElement>
+						</additionalClasspathElements>
+						<includes>
+							<include>**/*Test.java</include>
+						</includes>
+						<excludes>
+							<exclude>**/TestBean.java</exclude>
+						</excludes>
+					</configuration>
 				</plugin>
-				<!-- jar包生成插件 ：创建项目jar包--> 
-				<plugin>  					 
-					<groupId>org.apache.maven.plugins</groupId>  
-					<artifactId>maven-jar-plugin</artifactId>  
-					<version>3.0.2</version>  
-					<configuration> 
+				<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-jar-plugin -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>${maven-jar-plugin.version}</version>
+					<configuration>
 						<encoding>${project.build.sourceEncoding}</encoding>
-						<skipIfEmpty>true</skipIfEmpty> 
-	                    <archive>  
-                    	 	<manifest>
+						<skipIfEmpty>true</skipIfEmpty>
+						<archive>
+							<manifest>
 								<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
 								<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
 							</manifest>
-	                    </archive>  
-	                </configuration>  
-				</plugin> 
-				<!-- jar包生成插件 ：使用模块自身代码和依赖jar包打包最终的jar --> 
-			    <plugin>  
-			        <groupId>org.apache.maven.plugins</groupId>  
-			        <artifactId>maven-shade-plugin</artifactId>  
-			        <version>2.4.3</version>
-			        <executions>  
-			            <execution>  
-			                <phase>package</phase>  
-			                <goals>  
-			                    <goal>shade</goal>  
-			                </goals>  
-			                <configuration>  
-			                    <transformers>
-			                    	<shadedArtifactId></shadedArtifactId>
-			                    	
-			                        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">  
-			                            <mainClass>com.chenzhou.examples.Main</mainClass>  
-			                        </transformer> 
-			                       	<!-- 下面这段配置意思是把spring.handlers和spring.schemas文件以append方式加入到构建的jar包中，这样就不会出现xsd找不到的情况。
-			                        <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">  
-			                            <resource>META-INF/spring.handlers</resource>  
-			                        </transformer> 
-			                        <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">  
-			                            <resource>META-INF/spring.schemas</resource>  
-			                        </transformer>  
-			                       --> 
-			                    </transformers>  
-			                </configuration>  
-			            </execution>  
-			        </executions>  
-			    </plugin>
-			    <!-- assembly插件打包成jar包  -->
-	            <plugin>
-	                <groupId>org.apache.maven.plugins</groupId>
-	                <artifactId>maven-assembly-plugin</artifactId>
-	                <version>2.4.1</version>
-	                <configuration>
-	                    <!-- get all project dependencies -->
-	                    <descriptorRefs>
-	                        <descriptorRef>jar-with-dependencies</descriptorRef>
-	                    </descriptorRefs>
-	                    <!-- MainClass in mainfest make a executable jar 
-	                    <archive>
-	                      <manifest>
-	                        <mainClass>xxx.xxx</mainClass>
-	                      </manifest>
-	                    </archive>
-	 					-->
-	                </configuration>
-	                <executions>
-	                  <execution>
-	                    <id>make-assembly</id>
-	                    <!-- bind to the packaging phase -->
-	                    <phase>package</phase> 
-	                    <goals>
-	                        <goal>single</goal>
-	                    </goals>
-	                  </execution>
-	                </executions>
-	            </plugin> 
-				<!-- 安装插件：将项目输出构件安装到本地仓库 --> 
-				<plugin>  					 
-					<groupId>org.apache.maven.plugins</groupId>  
-					<artifactId>maven-install-plugin</artifactId>  
-					<version>2.5.2</version>  
-				</plugin> 
-				<!-- 发布插件 ：将项目输出构件部署到远程仓库--> 
-				<plugin>  
-		            <groupId>org.apache.maven.plugins</groupId>  
-		            <artifactId>maven-deploy-plugin</artifactId>  
-		            <version>2.8.2</version>  
-		        </plugin>
-		        <!-- release插件: 自动进行工程版本升级 -->
-	            <plugin>
-	                <groupId>org.apache.maven.plugins</groupId>
-	                <artifactId>maven-release-plugin</artifactId>
-	                <version>2.5.3</version>
-	                <configuration>
-	                    <!-- 设置分支跟里程碑的url -->
-	                    <branchBase>svn://121.43.110.87/jeefw/jeekit/branches</branchBase>
-	                    <tagBase>svn://121.43.110.87/jeefw/jeekit/tags</tagBase>
-	                </configuration>
-	            </plugin>	
-		        <!-- 签名插件 ：自动完成GPG签名--> 
-		        <plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-gpg-plugin</artifactId>
-					<version>1.6</version>
-					<executions>
-					    <execution>
-							<id>sign-artifacts</id>
-							<phase>verify</phase>
-							<goals>
-							     <goal>sign</goal>
-							</goals>
-					    </execution>
-					</executions>
-				</plugin>	
-				<!-- 源码插件:发布时自动将源码同时发布 -->				
-				<plugin>
-					 <groupId>org.apache.maven.plugins</groupId>
-					 <artifactId>maven-source-plugin</artifactId>
-					 <version>3.0.1</version> 
-					 <!-- 打包source文件为jar文件 -->
-					 <configuration>  
-					 	 <testFailureIgnore>true</testFailureIgnore>
-					 	 <!-- 打包源码一起发布到maven仓库中 -->
-	                     <attach>true</attach>  
-	                     <encoding>${project.build.sourceEncoding}</encoding>  
-	                 </configuration> 
-					 <executions>
-						 <execution>
-							 <id>attach-sources</id>
-							 <phase>package</phase>
-							 <goals>
-							 	<!-- 
-								 	jar-no-fork与jar的区别
-									jar，在执行goal之前，执行generate-sources阶段，也就是说，如果，jar绑定的目标在generate-sources之后(比如verify)的话，generate-sources会执行两遍。
-									jar-no-fork，没有其余动作，在绑定的phase执行。
-								 -->
-								<!-- <goal>jar</goal> -->
-								<goal>jar-no-fork</goal>
-							 </goals>
-						 </execution>
-					 </executions>
+						</archive>
+					</configuration>
 				</plugin>
-				<!-- 文档插件:发布时自动生成文档 -->	
-				<plugin>  
-		            <groupId>org.apache.maven.plugins</groupId>  
-		            <artifactId>maven-javadoc-plugin</artifactId>  
-		            <version>2.10.4</version> 
-					<configuration>  
-	                    <aggregate>true</aggregate>  
-	                    <argLine>-Dfile.encoding=UTF-8</argLine>
-                       	<charset>${project.build.sourceEncoding}</charset> 
-                        <encoding>${project.build.sourceEncoding}</encoding> 
-                        <docencoding>${project.build.sourceEncoding}</docencoding> 
-	                </configuration>
+				<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-javadoc-plugin -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>${maven-javadoc-plugin.version}</version>
+					<configuration>
+						<aggregate>true</aggregate>
+						<argLine>-Dfile.encoding=UTF-8</argLine>
+						<charset>${project.build.sourceEncoding}</charset>
+						<encoding>${project.build.sourceEncoding}</encoding>
+						<docencoding>${project.build.sourceEncoding}</docencoding>
+					</configuration>
 					<executions>
 						<execution>
 							<id>attach-javadocs</id>
@@ -310,111 +281,112 @@
 								<goal>jar</goal>
 							</goals>
 						</execution>
-					</executions>				
-		        </plugin>
-		        <!-- 依赖配置生成插件 ：自动复制maven依赖包到lib目录 -->  
-				<plugin>  
-		            <groupId>org.apache.maven.plugins</groupId>  
-		            <artifactId>maven-dependency-plugin</artifactId>  
-		            <version>2.10</version>  
-		            <!-- 拷贝依赖的jar包到lib目录 -->  
-		            <executions>  
-	                    <execution>  
-	                        <id>copy-dependencies</id>  
-	                        <phase>compile</phase>  
-	                        <goals>  
-	                            <goal>copy-dependencies</goal>  
-	                        </goals>  
-	                        <configuration>  
-								<!-- <outputDirectory>${basedir}/src/main/webapp/WEB-INF/lib</outputDirectory>   -->
-				                <!-- ${project.build.directory}为Maven内置变量，缺省为target  
-				                <outputDirectory>${project.build.directory}/lib</outputDirectory>  --> 
-				                <!-- 表示是否不包含间接依赖的包 -->  
-				                <excludeTransitive>false</excludeTransitive>  
-				                <!-- 表示复制的jar文件去掉版本信息 -->  
-				                <stripVersion>true</stripVersion>  
-	                        </configuration>  
-	                    </execution>  
-	                </executions>  
-		        </plugin>
-		        <plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-enforcer-plugin</artifactId>
-					<version>1.4.1</version>
-					<executions>
-						<execution>
-							<id>enforce-maven</id>
-							<goals>
-								<goal>enforce</goal>
-							</goals>
-							<configuration>
-								<rules>
-									<requireMavenVersion>
-										<version>3.3</version>
-									</requireMavenVersion>
-									<requireJavaVersion>
-										<version>1.7</version>
-									</requireJavaVersion>
-								</rules>
-							</configuration>
-						</execution>
 					</executions>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.felix</groupId>
-					<artifactId>maven-bundle-plugin</artifactId>
-					<version>1.4.0</version>
-					<extensions>true</extensions>
-					<configuration>
-						<instructions>
-							<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
-							<Bundle-Name>${project.name}</Bundle-Name>
-							<Bundle-Version>${project.version}</Bundle-Version>
-							<!-- <Bundle-Activator>com.javaworld.sample.tomcat.webActivator</Bundle-Activator>
-							<Export-Package>com.javaworld.sample.tomcat</Export-Package>
-							<Import-Package>org.osgi.framework</Import-Package> -->
-						</instructions>
-					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
 		<plugins>
+			<!--环境监察插件：代码编译前的环境监察-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+			</plugin>
+			<!-- 编译插件：编译主代码至主输出目录 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
 			<!-- 资源插件：复制主资源文件至主输出目录 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
 			</plugin>
-			<!-- 编译插件：编译主代码至主输出目录 -->  
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-			</plugin>
 			<!-- 单元测试插件 ：执行测试用例 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-			</plugin> 
+			</plugin>
 			<!-- jar包生成插件 ：创建项目jar包 -->
-			<plugin>  					 
-				<groupId>org.apache.maven.plugins</groupId>  
-				<artifactId>maven-jar-plugin</artifactId>  
-			</plugin> 
-			<!-- 安装插件：将项目输出构件安装到本地仓库 --> 
-			<plugin>  					 
-				<groupId>org.apache.maven.plugins</groupId>  
-				<artifactId>maven-install-plugin</artifactId>  
-			</plugin> 
-			<!-- 发布插件 ：将项目输出构件部署到远程仓库--> 
-			<plugin>  
-	            <groupId>org.apache.maven.plugins</groupId>  
-	            <artifactId>maven-deploy-plugin</artifactId>  
-	        </plugin>	
-			<!-- 源码插件:发布时自动将源码同时发布 -->				
 			<plugin>
-				 <groupId>org.apache.maven.plugins</groupId>
-				 <artifactId>maven-source-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+			</plugin>
+			<!-- 源码插件:发布时自动将源码同时发布 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+			</plugin>
+			<!-- 安装插件：将项目输出构件安装到本地仓库 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-install-plugin</artifactId>
+			</plugin>
+			<!-- 发布插件 ：将项目输出构件部署到远程仓库 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
+	
+	<profiles>
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<!--环境监察插件：代码编译前的环境监察-->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+		                <artifactId>maven-enforcer-plugin</artifactId>
+					</plugin>
+					<!-- 编译插件：编译主代码至主输出目录 -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-compiler-plugin</artifactId>
+					</plugin>
+					<!-- 资源插件：复制主资源文件至主输出目录 -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-resources-plugin</artifactId>
+					</plugin>
+					<!-- 单元测试插件 ：执行测试用例 -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+					</plugin>
+					<!-- jar包生成插件 ：创建项目jar包 -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-jar-plugin</artifactId>
+					</plugin>
+					<!-- 源码插件:发布时自动将源码同时发布 -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+					</plugin>
+					<!-- 安装插件：将项目输出构件安装到本地仓库 -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-install-plugin</artifactId>
+					</plugin>
+					<!-- 签名插件：对构建的jar、javadoc、source使用gpg来签名 -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+					</plugin>
+					<!-- 发布插件 ：将项目输出构件部署到远程仓库 -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-deploy-plugin</artifactId>
+					</plugin>
+					<!-- 版本自动升级插件 ：重置版本号 -->
+					<plugin>
+					    <groupId>org.apache.maven.plugins</groupId>
+					    <artifactId>maven-release-plugin</artifactId>
+				    </plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>
