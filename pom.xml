@@ -4,9 +4,9 @@
 
 	<groupId>com.github.vindell</groupId>
 	<artifactId>pac4j-oauth-ext</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<description>Pac4j Oauth Extension</description>
+	<version>1.0.0</version>
 	<name>${project.groupId}:${project.artifactId}</name>
-	<description>OAuth Extend For Pac4j</description>
    	<url>https://github.com/vindell/${project.artifactId}</url>
 	<packaging>jar</packaging>
 
@@ -34,18 +34,6 @@
 			<timezone>+8</timezone>
 		</developer>
 	</developers>
-	
-	<distributionManagement>
-		<snapshotRepository>
-			<id>ossrh</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-		</snapshotRepository>
-		<repository>
-			<id>ossrh</id>
-			<name>Maven Central Staging Repository</name>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-		</repository>
-	</distributionManagement>
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -386,7 +374,18 @@
 				    </plugin>
 				</plugins>
 			</build>
+			<distributionManagement>
+				<snapshotRepository>
+					<id>ossrh</id>
+					<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+				</snapshotRepository>
+				<repository>
+					<id>ossrh</id>
+					<name>Maven Central Staging Repository</name>
+					<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+				</repository>
+			</distributionManagement>
 		</profile>
 	</profiles>
-
+	
 </project>
