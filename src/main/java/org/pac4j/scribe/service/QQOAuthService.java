@@ -24,21 +24,24 @@ public class QQOAuthService {
     private String apiSecret   = "5bdbe9403fcc3abe8eba172337904b5a";               // QQ 互联应用管理中心的 APP Key
     private String scope       = "get_user_info";                                  // QQ 互联的 API 接口，访问用户资料
     private OAuth20Service oauthService; // 访问 QQ 服务的 service
+   
     public QQOAuthService() {
         // 创建访问 QQ 服务的 service
         oauthService = new ServiceBuilder().apiKey(apiKey).apiSecret(apiSecret)
                 .scope(scope).callback(callbackUrl).build(QQApi20.instance());
     }
+    
     /**
-     * 取得 QQ 登陆页面的 URL，例如
+     * 取得 QQ 登陆页面的 URL，例如 <p>
      * https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=101292272&
      * redirect_uri=http://open.qtdebug.com:8080/oauth/qq/callback&scope=get_user_info
-     *
+     * </p>
      * @return QQ 登陆页面的 URL
      */
     public String getLoginUrl() {
         return oauthService.getAuthorizationUrl();
     }
+    
     /**
      * 使用 code 换取 access token
      *
@@ -53,6 +56,7 @@ public class QQOAuthService {
         String accessToken = token.getAccessToken(); // 5943BF2461ED97237B878BECE78A8744
         return accessToken;
     }
+    
     /**
      * 获取用户的 open id，每个用户对于同一个 APP ID 的 open id 是一样的
      *
@@ -70,6 +74,7 @@ public class QQOAuthService {
         JSONObject obj = JSONObject.parseObject(json);
         return obj.getString("openid");
     }
+    
     /**
      * 获取用户的信息，QQ 的昵称，QQ 空间的头像等，一般这 2 个属性用的最多
      *
@@ -84,6 +89,7 @@ public class QQOAuthService {
         String responseJson = oauthResponse.getBody();
         return JSON.parseObject(responseJson);
     }
+    
     /**
      * 使用 OAuth 2.0 的方式从服务器获取 URL 指定的信息
      *

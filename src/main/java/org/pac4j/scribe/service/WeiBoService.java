@@ -39,23 +39,22 @@ public class WeiBoService {
     }
     
     /**
-     * 取得 WeiBo 登陆页面的 URL，例如
+     * 取得 WeiBo 登陆页面的 URL，例如 <p>
      * https://graph.WeiBo.com/oauth2.0/authorize?response_type=code&client_id=101292272&
-     * redirect_uri=http://open.qtdebug.com:8080/oauth/WeiBo/callback&scope=get_user_info
-     *
+     * redirect_uri=http://open.qtdebug.com:8080/oauth/WeiBo/callback&scope=get_user_info</p>
      * @return WeiBo 登陆页面的 URL
      */
     public String getLoginUrl() {
         return oauthService.getAuthorizationUrl();
     }
+    
     /**
      * 使用 code 换取 access token
-     *
      * @param code 成功登陆后 WeiBo Server 返回给回调 URL 的中间 code，用于换取 access token
      * @return 用于访问 WeiBo 服务的 token
      * @throws IOException
-     * @throws ExecutionException 
-     * @throws InterruptedException 
+     * @throws InterruptedException
+     * @throws ExecutionException
      */
     public String getAccessToken(String code) throws IOException, InterruptedException, ExecutionException {
         OAuth2AccessToken token = oauthService.getAccessToken(code); // 使用 code 换取 accessToken
@@ -65,8 +64,8 @@ public class WeiBoService {
     
     /**
      * 获取用户的uid，WeiBo 的昵称，WeiBo 空间的头像等，一般这 2 个属性用的最多
-     *
      * @param accessToken 登陆时从 WeiBo 系统得到的 access token，作为访问的凭证，相当于用户名密码的作用
+     * @return
      * @throws IOException
      */
     public String getUserid(String accessToken) throws IOException {
@@ -78,10 +77,9 @@ public class WeiBoService {
     }
     
     /**
-     * 获取用户的信息，WeiBo 的昵称，WeiBo 空间的头像等，一般这 2 个属性用的最多
-     *
+     * 获取用户的信息，WeiBo 的昵称，WeiBo 空间的头像等，一般这 2 个属性用的最多 
      * @param accessToken 登陆时从 WeiBo 系统得到的 access token，作为访问的凭证，相当于用户名密码的作用
-     * @param Uid 用户的uid
+     * @param uid 用户的uid
      * @return JSONObject 对象
      * @throws IOException
      */
@@ -92,29 +90,27 @@ public class WeiBoService {
         return responseJson;
     }
     
-    
-    
-    
-    /**
-     * 分享，WeiBo 的昵称，
-     *
-     * @param accessToken 登陆时从 WeiBo 系统得到的 access token，作为访问的凭证，相当于用户名密码的作用
-     * @param Uid 用户的uid
-     * @return JSONObject 对象
-     * @throws IOException
-     */
-    public String UserShare(String accessToken,String status) throws IOException {
+	/**
+	 * 分享，WeiBo 的昵称，
+	 * @param accessToken 登陆时从 WeiBo 系统得到的 access token，作为访问的凭证，相当于用户名密码的作用
+	 * @param status 
+	 * @return JSONObject 对象
+	 * @throws IOException
+	 */
+    public String UserShare(String accessToken, String status) throws IOException {
         String url = String.format(USER_SHARE_URL,status);
         Response oauthResponse = request(oauthService, accessToken, url,Verb.POST);
         String responseJson = oauthResponse.getBody();
         return responseJson;
     }
+    
     /**
      * 使用 OAuth 2.0 的方式从服务器获取 URL 指定的信息
-     *
+     * @param service
      * @param accessToken 登陆时从 WeiBo 系统得到的 access token，作为访问的凭证，相当于用户名密码的作用
      * @param url 访问 OAuth Server 服务的 URL
-     * @return
+     * @param verb
+     * @return com.github.scribejava.core.model.Response
      */
     public Response request(OAuth20Service service, String accessToken, String url,Verb verb) {
         OAuth2AccessToken token = new OAuth2AccessToken(accessToken);
