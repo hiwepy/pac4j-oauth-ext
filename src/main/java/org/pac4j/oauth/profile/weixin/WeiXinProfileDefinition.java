@@ -4,6 +4,7 @@ import org.pac4j.OAuth2Constants;
 import org.pac4j.core.exception.HttpAction;
 import org.pac4j.core.profile.converter.Converters;
 import org.pac4j.oauth.config.OAuth20Configuration;
+import org.pac4j.oauth.config.WeiXinOAuth20Configuration;
 import org.pac4j.oauth.profile.JsonHelper;
 import org.pac4j.oauth.profile.definition.OAuth20ProfileDefinition;
 
@@ -13,7 +14,7 @@ import com.github.scribejava.core.model.OAuth2AccessToken;
 /**
  * https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419316518&lang=zh_CN
  */
-public class WeiXinProfileDefinition extends OAuth20ProfileDefinition<WeiXinProfile>  { 
+public class WeiXinProfileDefinition extends OAuth20ProfileDefinition<WeiXinProfile, WeiXinOAuth20Configuration>  { 
 	
 	private final static String WEIXIN_PROFILE_URL = "https://api.weixin.qq.com/sns/userinfo?access_token=%s&openid=%s";
 
@@ -55,8 +56,8 @@ public class WeiXinProfileDefinition extends OAuth20ProfileDefinition<WeiXinProf
     }
 
 	@Override
-	public String getProfileUrl(OAuth2AccessToken accessToken, OAuth20Configuration configuration) {
-		return String.format(WEIXIN_PROFILE_URL, accessToken.getAccessToken(), accessToken.getParameter(OAuth2Constants.OPENID));
+	public String getProfileUrl(OAuth2AccessToken accessToken, WeiXinOAuth20Configuration configuration) {
+		return String.format(WEIXIN_PROFILE_URL, accessToken.getAccessToken(), configuration.getOpenid());
 	}
 
 	/**
@@ -87,9 +88,9 @@ public class WeiXinProfileDefinition extends OAuth20ProfileDefinition<WeiXinProf
         JsonNode json = JsonHelper.getFirstNode(body);
         if (json != null && JsonHelper.getElement(json, "errcode") == null) {
         	// 用户统一标识。针对一个微信开放平台帐号下的应用，同一用户的unionid是唯一的。
-            profile.setId(JsonHelper.getElement(json, OAuth2Constants.UNIONID));
+            //profile.setId(JsonHelper.getElement(json, OAuth2Constants.UNIONID));
             for (final String attribute : getPrimaryAttributes()) {
-				convertAndAdd(profile, attribute, JsonHelper.getElement(json, attribute));
+				//convertAndAdd(profile, attribute, JsonHelper.getElement(json, attribute));
 			}
         }
         return profile;

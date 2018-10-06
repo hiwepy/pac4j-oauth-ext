@@ -1,12 +1,15 @@
 package org.pac4j.scribe.builder.api;
 
+import java.io.OutputStream;
+
 import org.pac4j.scribe.service.QQOAuth20ServiceImpl;
 
 import com.github.scribejava.core.builder.api.DefaultApi20;
 import com.github.scribejava.core.extractors.OAuth2AccessTokenExtractor;
 import com.github.scribejava.core.extractors.TokenExtractor;
+import com.github.scribejava.core.httpclient.HttpClient;
+import com.github.scribejava.core.httpclient.HttpClientConfig;
 import com.github.scribejava.core.model.OAuth2AccessToken;
-import com.github.scribejava.core.model.OAuthConfig;
 import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
 
@@ -47,9 +50,20 @@ public class QQApi20 extends DefaultApi20 {
     }
     
     @Override
+    public OAuth20Service createService(String apiKey, String apiSecret, String callback, String scope,
+    		OutputStream debugStream, String state, String responseType, String userAgent,
+    		HttpClientConfig httpClientConfig, HttpClient httpClient) {
+    	return super.createService(apiKey, apiSecret, callback, scope, debugStream, state, responseType, userAgent,
+    			httpClientConfig, httpClient);
+    }
+    
+    
+    
+/*
+    @Override
     public OAuth20Service createService(OAuthConfig config) {
         return new QQOAuth20ServiceImpl(this, config);
     }
-
+    */
 	
 }

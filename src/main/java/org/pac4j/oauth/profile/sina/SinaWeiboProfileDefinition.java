@@ -3,6 +3,7 @@ package org.pac4j.oauth.profile.sina;
 import org.pac4j.core.exception.HttpAction;
 import org.pac4j.core.profile.converter.Converters;
 import org.pac4j.oauth.config.OAuth20Configuration;
+import org.pac4j.oauth.config.SinaOAuth20Configuration;
 import org.pac4j.oauth.profile.JsonHelper;
 import org.pac4j.oauth.profile.definition.OAuth20ProfileDefinition;
 
@@ -12,7 +13,7 @@ import com.github.scribejava.core.model.OAuth2AccessToken;
 /**
  * http://open.weibo.com/wiki/2/statuses/user_timeline
  */
-public class SinaWeiboProfileDefinition extends OAuth20ProfileDefinition<SinaWeiboProfile> {
+public class SinaWeiboProfileDefinition extends OAuth20ProfileDefinition<SinaWeiboProfile, SinaOAuth20Configuration> {
 
 	private final static String SINA_PROFILE_URL = "https://api.weibo.com/2/users/show.json?access_token=%s";
 
@@ -129,7 +130,7 @@ public class SinaWeiboProfileDefinition extends OAuth20ProfileDefinition<SinaWei
 	}
 
 	@Override
-	public String getProfileUrl(final OAuth2AccessToken accessToken, final OAuth20Configuration configuration) {
+	public String getProfileUrl(final OAuth2AccessToken accessToken, final SinaOAuth20Configuration configuration) {
 		return String.format(SINA_PROFILE_URL, accessToken.getAccessToken());
 	}
 
@@ -139,9 +140,9 @@ public class SinaWeiboProfileDefinition extends OAuth20ProfileDefinition<SinaWei
         JsonNode json = JsonHelper.getFirstNode(body);
         if (json != null) {
         	//用户UID
-            profile.setId(JsonHelper.getElement(json, "id"));
+            //profile.setId(JsonHelper.getElement(json, "id"));
             for (final String attribute : getPrimaryAttributes()) {
-				convertAndAdd(profile, attribute, JsonHelper.getElement(json, attribute));
+				//convertAndAdd(profile, attribute, JsonHelper.getElement(json, attribute));
 			}
         }
         return profile;

@@ -1,10 +1,9 @@
 package org.pac4j.scribe.service;
 
-import org.pac4j.OAuth2Constants;
-
 import com.github.scribejava.core.builder.api.DefaultApi20;
-import com.github.scribejava.core.model.AbstractRequest;
-import com.github.scribejava.core.model.OAuthConfig;
+import com.github.scribejava.core.httpclient.HttpClient;
+import com.github.scribejava.core.httpclient.HttpClientConfig;
+import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.oauth.OAuth20Service;
 
 /**
@@ -12,11 +11,20 @@ import com.github.scribejava.core.oauth.OAuth20Service;
  */
 public class WeiXinOAuth20ServiceImpl extends OAuth20Service {
 
-    public WeiXinOAuth20ServiceImpl(DefaultApi20 api, OAuthConfig config) {
-        super(api, config);
-    }
-
-    @Override
+	public WeiXinOAuth20ServiceImpl(DefaultApi20 api, String apiKey, String apiSecret, String callback, String scope,
+			String state, String responseType, String userAgent, HttpClientConfig httpClientConfig,
+			HttpClient httpClient) {
+		super(api, apiKey, apiSecret, callback, scope, state, responseType, userAgent, httpClientConfig, httpClient);
+	}
+	
+	@Override
+	protected OAuthRequest createAccessTokenRequest(String code, String pkceCodeVerifier) {
+		// TODO Auto-generated method stub
+		return super.createAccessTokenRequest(code, pkceCodeVerifier);
+	}
+	
+	/*
+	@Override
     protected <T extends AbstractRequest> T createAccessTokenRequest(String code, T request) {
     	request.addParameter(OAuth2Constants.APPID, getConfig().getApiKey());
     	return super.createAccessTokenRequest(code, request);
@@ -26,7 +34,8 @@ public class WeiXinOAuth20ServiceImpl extends OAuth20Service {
     protected <T extends AbstractRequest> T createRefreshTokenRequest(String refreshToken, T request) {
     	request.addParameter(OAuth2Constants.APPID, getConfig().getApiKey());
     	return super.createRefreshTokenRequest(refreshToken, request);
-    }
+    }*/
+    
    
     
 }

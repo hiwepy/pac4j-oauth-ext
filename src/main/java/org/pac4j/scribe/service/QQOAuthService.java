@@ -25,6 +25,7 @@ public class QQOAuthService {
     private String scope       = "get_user_info";                                  // QQ 互联的 API 接口，访问用户资料
     private OAuth20Service oauthService; // 访问 QQ 服务的 service
    
+    
     public QQOAuthService() {
         // 创建访问 QQ 服务的 service
         oauthService = new ServiceBuilder().apiKey(apiKey).apiSecret(apiSecret)
