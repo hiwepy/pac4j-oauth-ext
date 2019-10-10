@@ -385,43 +385,87 @@
         <maven-surefire-plugin.vertsion>2.22.1</maven-surefire-plugin.vertsion>
         <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
 		<maven-nexus-staging-plugin.version>1.6.8</maven-nexus-staging-plugin.version>
-		<pac4j.version>3.2.0</pac4j.version>
-		<scribejava.version>5.6.0</scribejava.version>
+		<pac4j.version>4.0.0-RC1</pac4j.version>
 	</properties>
-
+	
+	<dependencyManagement>
+		<dependencies>
+			
+			<!-- https://mvnrepository.com/artifact/org.pac4j -->
+			<dependency>
+	            <groupId>org.pac4j</groupId>
+	            <artifactId>pac4j-core</artifactId>
+	            <version>${pac4j.version}</version>
+	        </dependency>
+	        <dependency>
+			    <groupId>org.pac4j</groupId>
+			    <artifactId>pac4j-config</artifactId>
+			    <version>${pac4j.version}</version>
+			</dependency>
+			<!-- PAC4J For OAuth Protocol  -->
+	        <dependency>
+	            <groupId>org.pac4j</groupId>
+	            <artifactId>pac4j-oauth</artifactId>
+	            <version>${pac4j.version}</version>
+	        </dependency>
+			
+			<dependency>
+				<groupId>cn.yiban.open</groupId>
+				<artifactId>java-sdk</artifactId>
+				<version>${yiban-sdk.version}</version>
+			</dependency>
+			
+			<!-- http://mvnrepository.com/artifact/com.alibaba/fastjson -->
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>fastjson</artifactId>
+				<version>${fastjson.version}</version>
+			</dependency>
+			
+			<!-- https://mvnrepository.com/artifact/commons-httpclient/commons-httpclient -->
+			<dependency>
+				<groupId>commons-httpclient</groupId>
+				<artifactId>commons-httpclient</artifactId>
+				<version>${commons-httpclient.version}</version>
+			</dependency>
+			
+			<!-- https://mvnrepository.com/artifact/org.apache.commons/not-yet-commons-ssl -->
+			<!-- 
+				Not-Yet-Commons-SSL是Apache许可证下的一款Java类库，它提供易于使用的API，并支持各种各样的证书格式和配置选项，来达到简化SSL的使用的目的。
+				尤其是，它允许在单个JVM中使用多个证书，优雅地处理自签名证书，以及支持所有标准的证书格式，从而解决了一些长期以来一直存在的Java内建的SSL支持问题。
+				详情参见：http://www.infoq.com/cn/news/2007/06/not-yet-commons-ssl
+			 -->
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>not-yet-commons-ssl</artifactId>
+				<version>${commons-not-yet-ssl.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	
 	<dependencies>
-
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>${commons-lang3.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.pac4j</groupId>
-			<artifactId>pac4j-oauth</artifactId>
-			<version>${pac4j.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.github.scribejava</groupId>
-			<artifactId>scribejava-apis</artifactId>
-			<version>${scribejava.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.github.scribejava</groupId>
-			<artifactId>scribejava-core</artifactId>
-			<version>${scribejava.version}</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+	 	
+	 	<!-- http://mvnrepository.com/artifact/com.alibaba/fastjson -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
-			<version>${fastjson.version}</version>
 		</dependency>
-
+		
+		<!-- https://mvnrepository.com/artifact/org.pac4j -->
+		<dependency>
+            <groupId>org.pac4j</groupId>
+            <artifactId>pac4j-core</artifactId>
+        </dependency>
+        <dependency>
+		    <groupId>org.pac4j</groupId>
+		    <artifactId>pac4j-config</artifactId>
+		</dependency>
+		<!-- PAC4J For OAuth Protocol  -->
+        <dependency>
+            <groupId>org.pac4j</groupId>
+            <artifactId>pac4j-oauth</artifactId>
+        </dependency>
+		
 	</dependencies>
-
 	
 </project>
