@@ -1,6 +1,6 @@
 package org.pac4j.oauth.profile.oschina;
 
-import org.pac4j.core.exception.HttpAction;
+import org.pac4j.core.exception.http.HttpAction;
 import org.pac4j.core.profile.converter.Converters;
 import org.pac4j.oauth.config.OAuth20Configuration;
 import org.pac4j.oauth.profile.JsonHelper;
@@ -12,7 +12,7 @@ import com.github.scribejava.core.model.OAuth2AccessToken;
 /**
  * http://www.oschina.net/openapi/docs/openapi_user
  */
-public class OschinaProfileDefinition extends OAuth20ProfileDefinition<OschinaProfile>  {
+public class OschinaProfileDefinition extends OAuth20ProfileDefinition<OschinaProfile, OAuth20Configuration> {
 
 	public static final String PROFILE_URL = "http://www.oschina.net/action/openapi/user?access_token=%s";
     public static final String NAME = "name";
@@ -52,12 +52,12 @@ public class OschinaProfileDefinition extends OAuth20ProfileDefinition<OschinaPr
 		 */
 		final OschinaProfile profile = new OschinaProfile();
         JsonNode json = JsonHelper.getFirstNode(body);
-        if (json != null && JsonHelper.getElement(json, "error") == null) {
+       /* if (json != null && JsonHelper.getElement(json, "error") == null) {
             profile.setId(JsonHelper.getElement(json, "id"));
             for (final String attribute : getPrimaryAttributes()) {
 				convertAndAdd(profile, attribute, JsonHelper.getElement(json, attribute));
 			}
-        }
+        }*/
         return profile;
 	}
 }

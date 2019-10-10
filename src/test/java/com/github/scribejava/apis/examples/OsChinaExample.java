@@ -9,7 +9,7 @@ public class OsChinaExample {
 
 	public static void main(String[] args) {
 
-		final OAuth20Service oschina = new ServiceBuilder().apiKey("ap4CsYvTlSbHcQYVaoSM")
+		final OAuth20Service oschina = new ServiceBuilder("ap4CsYvTlSbHcQYVaoSM")
 				.apiSecret("tpgjHGhh4C5gPzFSMR8hcG9bDPMMfODH").callback("https://vindell.github.io")
 				.responseType("code").build(OschinaApi20.instance());
 		System.out.println(oschina.getAuthorizationUrl());

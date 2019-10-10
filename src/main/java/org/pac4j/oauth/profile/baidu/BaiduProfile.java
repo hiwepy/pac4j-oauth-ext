@@ -4,7 +4,6 @@ import java.net.URI;
 
 import org.pac4j.core.profile.Gender;
 import org.pac4j.oauth.profile.OAuth20Profile;
-import org.pac4j.oauth.profile.qq.QQProfileDefinition;
 
 /**
  * http://developer.baidu.com/wiki/index.php?title=docs/oauth/rest/file_data_apis_list
@@ -93,21 +92,5 @@ public class BaiduProfile extends OAuth20Profile {
 	public String getJob() {
 		return (String) getAttribute(BaiduProfileDefinition.JOB);
 	}
-
-	public String getFigureurl_1() {
-		return (String) getAttribute(QQProfileDefinition.FIGURE_URL_1);
-	}
-
-	public String getFigureurl_2() {
-		return (String) getAttribute(QQProfileDefinition.FIGURE_URL_2);
-	}
-
-	public String getFigureurl_qq_1() {
-		return (String) getAttribute(QQProfileDefinition.FIGURE_URL_QQ_1);
-	}
-
-	public String getFigureurl_qq_2() {
-		return (String) getAttribute(QQProfileDefinition.FIGURE_URL_QQ_2);
-	}
-
+	 
 }

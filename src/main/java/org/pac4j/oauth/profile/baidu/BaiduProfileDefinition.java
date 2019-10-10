@@ -1,6 +1,6 @@
 package org.pac4j.oauth.profile.baidu;
 
-import org.pac4j.core.exception.HttpAction;
+import org.pac4j.core.exception.http.HttpAction;
 import org.pac4j.core.profile.converter.Converters;
 import org.pac4j.oauth.config.OAuth20Configuration;
 import org.pac4j.oauth.profile.JsonHelper;
@@ -12,7 +12,7 @@ import com.github.scribejava.core.model.OAuth2AccessToken;
 /**
  * http://developer.baidu.com/wiki/index.php?title=docs/oauth/rest/file_data_apis_list
  */
-public class BaiduProfileDefinition extends OAuth20ProfileDefinition<BaiduProfile>  {
+public class BaiduProfileDefinition extends OAuth20ProfileDefinition<BaiduProfile, OAuth20Configuration>  {
 
 	public static final String PROFILE_URL = "https://openapi.baidu.com/rest/2.0/passport/users/getInfo?access_token=%s";
 	   
@@ -102,7 +102,8 @@ public class BaiduProfileDefinition extends OAuth20ProfileDefinition<BaiduProfil
 	public BaiduProfile extractUserProfile(String body) throws HttpAction {
 		final BaiduProfile profile = new BaiduProfile();
         JsonNode json = JsonHelper.getFirstNode(body);
-        if (json != null && JsonHelper.getElement(json, "error_code") == null) {
+        
+        /*if (json != null && JsonHelper.getElement(json, "error_code") == null) {
         	// 当前登录用户的数字ID
             profile.setId(JsonHelper.getElement(json, USER_ID));
             // 主要属性
@@ -113,7 +114,7 @@ public class BaiduProfileDefinition extends OAuth20ProfileDefinition<BaiduProfil
             for (final String attribute : getSecondaryAttributes()) {
 				convertAndAdd(profile, attribute, String.format(PORTRAIT_URL, JsonHelper.getElement(json, PORTRAIT).toString()) );
 			}
-        }
+        }*/
         return profile;
 	}
 }

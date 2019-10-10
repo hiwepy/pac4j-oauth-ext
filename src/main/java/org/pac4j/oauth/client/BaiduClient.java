@@ -1,31 +1,83 @@
 package org.pac4j.oauth.client;
 
-import org.pac4j.core.context.WebContext;
-import org.pac4j.oauth.profile.baidu.BaiduProfile;
-import org.pac4j.oauth.profile.baidu.BaiduProfileDefinition;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.github.scribejava.apis.RenrenApi;
+import org.pac4j.oauth.profile.baidu.BaiduProfileCreator;
+import org.pac4j.oauth.profile.baidu.BaiduProfileDefinition;
+import org.pac4j.scribe.builder.api.BaiduApi20;
 
 /**
  */
-public class BaiduClient extends OAuth20Client<BaiduProfile> {
+public class BaiduClient extends OAuth20Client {
 
-	public BaiduClient() {
-	}
+	public enum BaiduScope {
+        /**
+         * Only for WeChat QRCode login. Get the nickname, avatar, and gender of the logged in user.
+         */
+        SNSAPI_LOGIN,
+        /**
+         * Exchange code for access_token, refresh_token, and authorized scope
+         */
+        SNSAPI_BASE,
+        /**
+         * Get user personal information
+         */
+        SNSAPI_USERINFO
+    }
 
-	public BaiduClient(final String key, final String secret) {
-		setKey(key);
-		setSecret(secret);
-	}
+    protected List<BaiduScope> scopes;
 
-	@Override
-	protected void clientInit(final WebContext context) {
 
-		configuration.setApi(RenrenApi.instance());
-		configuration.setProfileDefinition(new BaiduProfileDefinition());
-		setConfiguration(configuration);
-		 
-		super.clientInit(context);
-	}
+    public BaiduClient() {
+    }
+
+    public BaiduClient(final String key, final String secret) {
+        setKey(key);
+        setSecret(secret);
+    }
+
+    @Override
+    protected void clientInit() {
+        configuration.setApi(BaiduApi20.instance());
+        configuration.setScope(getOAuthScope());
+        configuration.setProfileDefinition(new BaiduProfileDefinition());
+        configuration.setWithState(true);
+        defaultProfileCreator(new BaiduProfileCreator(configuration, this));
+        super.clientInit();
+    }
+
+    protected String getOAuthScope() {
+        StringBuilder builder = null;
+        if (scopes == null || scopes.isEmpty()) {
+            scopes = new ArrayList<>();
+            scopes.add(BaiduScope.SNSAPI_BASE);
+        }
+        if (scopes != null) {
+            for (BaiduScope value : scopes) {
+                if (builder == null) {
+                    builder = new StringBuilder();
+                } else {
+                    builder.append(",");
+                }
+                builder.append(value.toString().toLowerCase());
+            }
+        }
+        return builder == null ? null : builder.toString();
+    }
+
+    public List<BaiduScope> getScopes() {
+        return scopes;
+    }
+
+    public void setScopes(List<BaiduScope> scopes) {
+        this.scopes = scopes;
+    }
+
+    public void addScope(BaiduScope scopes) {
+        if (this.scopes == null)
+            this.scopes = new ArrayList<>();
+        this.scopes.add(scopes);
+    }
 
 }
