@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, vindell (https://github.com/vindell).
+ * Copyright (c) 2018, hiwepy (https://github.com/hiwepy).
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -30,7 +30,7 @@ import org.pac4j.scribe.builder.api.YibanApi20;
  * "https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419316505&token=&lang=zh_CN">
  * WeChat login development guide</a></p>
  *
- * @author 		： <a href="https://github.com/vindell">wandl</a>
+ * @author 		： <a href="https://github.com/hiwepy">wandl</a>
  */
 public class YibanClient extends OAuth20Client {
 

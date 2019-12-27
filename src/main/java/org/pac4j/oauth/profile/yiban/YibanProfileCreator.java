@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, vindell (https://github.com/vindell).
+ * Copyright (c) 2018, hiwepy (https://github.com/hiwepy).
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -29,7 +29,7 @@ import com.github.scribejava.core.model.OAuth2AccessToken;
 /**
  * Specific profile creator for Yiban.
  *
- *  @author 		： <a href="https://github.com/vindell">wandl</a>
+ *  @author 		： <a href="https://github.com/hiwepy">wandl</a>
  */
 public class YibanProfileCreator extends OAuth20ProfileCreator<YibanProfile> {
 	

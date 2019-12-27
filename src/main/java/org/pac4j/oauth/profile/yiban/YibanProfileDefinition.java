@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, vindell (https://github.com/vindell).
+ * Copyright (c) 2018, hiwepy (https://github.com/hiwepy).
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -36,7 +36,7 @@ import com.github.scribejava.core.model.OAuth2AccessToken;
  * This class is the  Yiban profile definition (using OAuth 2.0 protocol).
  * <p>More info at: <a href="https://open.yiban.cn/wiki/index.php?page=user/real_me">user/real_me</a></p>
  *
- * @author 		： <a href="https://github.com/vindell">wandl</a>
+ * @author 		： <a href="https://github.com/hiwepy">wandl</a>
  */
 public class YibanProfileDefinition extends OAuth20ProfileDefinition<YibanProfile, OAuth20Configuration> {
 

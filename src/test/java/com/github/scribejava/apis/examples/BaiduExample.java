@@ -10,7 +10,7 @@ public class BaiduExample {
 	public static void main(String[] args) {
 
 		final OAuth20Service oschina = new ServiceBuilder("EaIglDEnH58bipirI2kIGYpP")
-				.apiSecret("VQ9n3GGcBhNx58DKK8DG9iGphb6u2e88").callback("https://vindell.github.io")
+				.apiSecret("VQ9n3GGcBhNx58DKK8DG9iGphb6u2e88").callback("https://hiwepy.github.io")
 				.responseType("code").build(BaiduApi20.instance());
 		System.out.println(oschina.getAuthorizationUrl());
 	}
