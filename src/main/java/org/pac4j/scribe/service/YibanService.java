@@ -16,6 +16,7 @@
 package org.pac4j.scribe.service;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -55,9 +56,10 @@ public class YibanService extends OAuth20Service {
      * @param httpClient  the HTTP client
      * 
      */
-    public YibanService(DefaultApi20 api, String apiKey, String apiSecret, String callback, String scope, String state,
-            String responseType, String userAgent, HttpClientConfig httpClientConfig, HttpClient httpClient) {
-		super(api, apiKey, apiSecret, callback, scope, responseType, userAgent, httpClientConfig, httpClient);
+    public YibanService(DefaultApi20 api, String apiKey, String apiSecret, String callback, String scope,
+            String responseType, OutputStream debugStream, String userAgent, HttpClientConfig httpClientConfig,
+            HttpClient httpClient) {
+    	super(api, apiKey, apiSecret, callback, scope, responseType, debugStream, userAgent, httpClientConfig, httpClient);
         this.apiKey = apiKey;
         this.apiSecrect = apiSecret;
     }

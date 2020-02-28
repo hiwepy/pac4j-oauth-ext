@@ -99,12 +99,14 @@ public class YibanApi20 extends DefaultApi20 {
     public TokenExtractor<OAuth2AccessToken> getAccessTokenExtractor() {
         return YibanJsonExtractor.instance();
     }
-
-    @Override
-    public OAuth20Service createService(String apiKey, String apiSecret, String callback, String scope, OutputStream debugStream,
-            String state, String responseType, String userAgent, HttpClientConfig httpClientConfig, HttpClient httpClient) {
-        return new YibanService(this, apiKey, apiSecret, callback, scope, state, responseType, userAgent, httpClientConfig, httpClient);
-    }
+	
+	@Override
+	public OAuth20Service createService(String apiKey, String apiSecret, String callback, String defaultScope,
+			String responseType, OutputStream debugStream, String userAgent, HttpClientConfig httpClientConfig,
+			HttpClient httpClient) {
+		 return new YibanService(this, apiKey, apiSecret, callback, defaultScope, responseType,
+				 debugStream, userAgent, httpClientConfig, httpClient);
+	}
 
     @Override
     public BearerSignature getBearerSignature() {

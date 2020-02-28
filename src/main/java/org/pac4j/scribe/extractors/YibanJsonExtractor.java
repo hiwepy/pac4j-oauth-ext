@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
 
 import org.pac4j.scribe.model.WechatToken;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.github.scribejava.core.extractors.OAuth2AccessTokenJsonExtractor;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 
@@ -45,10 +46,11 @@ public class YibanJsonExtractor extends OAuth2AccessTokenJsonExtractor {
 
     @Override
     protected OAuth2AccessToken createToken(String accessToken, String tokenType, Integer expiresIn,
-                                            String refreshToken, String scope, String response) {
-        String openid = extractParameter(response, OPENID_REGEX_PATTERN, true);
-        String unionid = extractParameter(response, EXPIRES_REGEX_PATTERN, false);
-        WechatToken token = new WechatToken(accessToken, tokenType, expiresIn, refreshToken, scope, response, openid, unionid);
-        return token;
+    		String refreshToken, String scope, JsonNode response, String rawResponse) {
+    	 String openid = extractRequiredParameter(response, OPENID_REGEX_PATTERN, true);
+         String unionid = extractRequiredParameter(response, EXPIRES_REGEX_PATTERN, false);
+         WechatToken token = new WechatToken(accessToken, tokenType, expiresIn, refreshToken, scope, response, openid, unionid);
+         return token;
     }
+     
 }
