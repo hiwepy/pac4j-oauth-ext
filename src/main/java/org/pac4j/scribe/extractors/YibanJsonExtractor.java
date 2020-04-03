@@ -15,9 +15,7 @@
  */
 package org.pac4j.scribe.extractors;
 
-import java.util.regex.Pattern;
-
-import org.pac4j.scribe.model.WechatToken;
+import org.pac4j.scribe.model.YibanToken;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.scribejava.core.extractors.OAuth2AccessTokenJsonExtractor;
@@ -29,8 +27,8 @@ import com.github.scribejava.core.model.OAuth2AccessToken;
  */
 public class YibanJsonExtractor extends OAuth2AccessTokenJsonExtractor {
 
-	private static final Pattern OPENID_REGEX_PATTERN = Pattern.compile("\"userid\"\\s*:\\s*\"(\\S*?)\"");
-    private static final Pattern EXPIRES_REGEX_PATTERN = Pattern.compile("\"expires\"\\s*:\\s*\"?(\\d*?)\"?\\D");
+	private static final String OPENID_REGEX_PATTERN = "userid";
+    private static final String EXPIRES_REGEX_PATTERN = "expires";
 
     protected YibanJsonExtractor() {
     }
@@ -44,12 +42,14 @@ public class YibanJsonExtractor extends OAuth2AccessTokenJsonExtractor {
         return YibanJsonExtractor.InstanceHolder.INSTANCE;
     }
 
+    
     @Override
     protected OAuth2AccessToken createToken(String accessToken, String tokenType, Integer expiresIn,
     		String refreshToken, String scope, JsonNode response, String rawResponse) {
-    	 String openid = extractRequiredParameter(response, OPENID_REGEX_PATTERN, true);
-         String unionid = extractRequiredParameter(response, EXPIRES_REGEX_PATTERN, false);
-         WechatToken token = new WechatToken(accessToken, tokenType, expiresIn, refreshToken, scope, response, openid, unionid);
+    	
+    	 String openid = extractRequiredParameter(response, OPENID_REGEX_PATTERN, rawResponse).asText();
+         String unionid = extractRequiredParameter(response, EXPIRES_REGEX_PATTERN, rawResponse).asText();;
+         YibanToken token = new YibanToken(accessToken, tokenType, expiresIn, refreshToken, scope, response, openid, unionid);
          return token;
     }
      
