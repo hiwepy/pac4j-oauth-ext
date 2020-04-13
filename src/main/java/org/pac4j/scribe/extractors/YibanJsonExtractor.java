@@ -27,7 +27,7 @@ import com.github.scribejava.core.model.OAuth2AccessToken;
  */
 public class YibanJsonExtractor extends OAuth2AccessTokenJsonExtractor {
 
-	private static final String OPENID_REGEX_PATTERN = "userid";
+	private static final String USERID_REGEX_PATTERN = "userid";
     private static final String EXPIRES_REGEX_PATTERN = "expires";
 
     protected YibanJsonExtractor() {
@@ -46,10 +46,9 @@ public class YibanJsonExtractor extends OAuth2AccessTokenJsonExtractor {
     @Override
     protected OAuth2AccessToken createToken(String accessToken, String tokenType, Integer expiresIn,
     		String refreshToken, String scope, JsonNode response, String rawResponse) {
-    	
-    	 String openid = extractRequiredParameter(response, OPENID_REGEX_PATTERN, rawResponse).asText();
+    	 String userid = extractRequiredParameter(response, USERID_REGEX_PATTERN, rawResponse).asText();
          String unionid = extractRequiredParameter(response, EXPIRES_REGEX_PATTERN, rawResponse).asText();;
-         YibanToken token = new YibanToken(accessToken, tokenType, expiresIn, refreshToken, scope, response, openid, unionid);
+         YibanToken token = new YibanToken(accessToken, tokenType, expiresIn, refreshToken, scope, rawResponse, userid);
          return token;
     }
      

@@ -12,8 +12,8 @@ public class YibanExample {
 		final String apiKey = "101303927";
 		final String apiSecret = "0c3ac6430d6e2f60dfb637101252417e ";
 		final OAuth20Service service = new ServiceBuilder(apiKey).apiSecret(apiSecret)
-				.callback("http://www.yichisancun.com/qqlogin.htm").state("xxxx")
-				.scope("get_user_info,list_album,upload_pic,do_like").build(YibanApi20.instance());
+				//.withScope("get_user_info,list_album,upload_pic,do_like")
+				.callback("http://www.yichisancun.com/qqlogin.htm").build(YibanApi20.instance());
 
 		System.out.println(service.getAuthorizationUrl());
 	}
