@@ -49,8 +49,8 @@ public class YibanService extends OAuth20Service {
      * @param apiSecret the API secret
      * @param callback the callback URL
      * @param scope the scope
-     * @param state the state
      * @param responseType the response type
+     * @param debugStream the debug Stream
      * @param userAgent the user agent
      * @param httpClientConfig the HTTP client configuration
      * @param httpClient  the HTTP client
