@@ -2,17 +2,17 @@ package org.pac4j.oauth.profile.oschina;
 
 import org.pac4j.core.exception.http.HttpAction;
 import org.pac4j.core.profile.converter.Converters;
-import org.pac4j.oauth.config.OAuth20Configuration;
+import org.pac4j.oauth.config.OAuthConfiguration;
 import org.pac4j.oauth.profile.JsonHelper;
-import org.pac4j.oauth.profile.definition.OAuth20ProfileDefinition;
+import org.pac4j.oauth.profile.definition.OAuthProfileDefinition;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.github.scribejava.core.model.Token;
 
 /**
  * http://www.oschina.net/openapi/docs/openapi_user
  */
-public class OschinaProfileDefinition extends OAuth20ProfileDefinition<OschinaProfile, OAuth20Configuration> {
+public class OschinaProfileDefinition extends OAuthProfileDefinition {
 
 	public static final String PROFILE_URL = "http://www.oschina.net/action/openapi/user?access_token=%s";
     public static final String NAME = "name";
@@ -27,8 +27,8 @@ public class OschinaProfileDefinition extends OAuth20ProfileDefinition<OschinaPr
     }
 
 	@Override
-	public String getProfileUrl(OAuth2AccessToken accessToken, OAuth20Configuration configuration) {
-		return String.format(PROFILE_URL, accessToken.getAccessToken());
+	public String getProfileUrl(Token accessToken, OAuthConfiguration configuration) {
+		return String.format(PROFILE_URL, accessToken.getRawResponse());
 	}
 
 	@Override

@@ -2,17 +2,17 @@ package org.pac4j.oauth.profile.baidu;
 
 import org.pac4j.core.exception.http.HttpAction;
 import org.pac4j.core.profile.converter.Converters;
-import org.pac4j.oauth.config.OAuth20Configuration;
+import org.pac4j.oauth.config.OAuthConfiguration;
 import org.pac4j.oauth.profile.JsonHelper;
-import org.pac4j.oauth.profile.definition.OAuth20ProfileDefinition;
+import org.pac4j.oauth.profile.definition.OAuthProfileDefinition;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.github.scribejava.core.model.Token;
 
 /**
  * http://developer.baidu.com/wiki/index.php?title=docs/oauth/rest/file_data_apis_list
  */
-public class BaiduProfileDefinition extends OAuth20ProfileDefinition<BaiduProfile, OAuth20Configuration>  {
+public class BaiduProfileDefinition extends OAuthProfileDefinition  {
 
 	public static final String PROFILE_URL = "https://openapi.baidu.com/rest/2.0/passport/users/getInfo?access_token=%s";
 	   
@@ -72,8 +72,8 @@ public class BaiduProfileDefinition extends OAuth20ProfileDefinition<BaiduProfil
     }
 
 	@Override
-	public String getProfileUrl(OAuth2AccessToken accessToken, OAuth20Configuration configuration) {
-		return String.format(PROFILE_URL, accessToken.getAccessToken());
+	public String getProfileUrl(Token accessToken, OAuthConfiguration configuration) {
+		return String.format(PROFILE_URL, accessToken.getRawResponse());
 	}
 
 	/**

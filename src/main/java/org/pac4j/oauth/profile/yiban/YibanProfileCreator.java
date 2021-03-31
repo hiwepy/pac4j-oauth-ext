@@ -24,14 +24,14 @@ import org.pac4j.oauth.config.OAuth20Configuration;
 import org.pac4j.oauth.profile.creator.OAuth20ProfileCreator;
 import org.pac4j.scribe.model.YibanToken;
 
-import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.github.scribejava.core.model.Token;
 
 /**
  * Specific profile creator for Yiban.
  *
  *  @author 		： <a href="https://github.com/hiwepy">wandl</a>
  */
-public class YibanProfileCreator extends OAuth20ProfileCreator<YibanProfile> {
+public class YibanProfileCreator extends OAuth20ProfileCreator {
 	
     public YibanProfileCreator(OAuth20Configuration configuration,
                                 IndirectClient client) {
@@ -39,8 +39,7 @@ public class YibanProfileCreator extends OAuth20ProfileCreator<YibanProfile> {
     }
 
     @Override
-    protected Optional<UserProfile> retrieveUserProfileFromToken(WebContext context,
-                                                                 OAuth2AccessToken accessToken) {
+    protected Optional<UserProfile> retrieveUserProfileFromToken(final WebContext context, final Token accessToken) {
         final YibanToken token = (YibanToken) accessToken;
         final Optional<UserProfile> profile = super.retrieveUserProfileFromToken(context, token);
         ((YibanProfile) profile.get()).setId(token.getUserid());
