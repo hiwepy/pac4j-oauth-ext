@@ -393,6 +393,13 @@
 			    <artifactId>pac4j-config</artifactId>
 			    <version>${pac4j.version}</version>
 			</dependency>
+
+			<!-- PAC4J For HTTP Protocol  -->
+			<dependency>
+				<groupId>org.pac4j</groupId>
+				<artifactId>pac4j-http</artifactId>
+				<version>${pac4j.version}</version>
+			</dependency>
 			<!-- PAC4J For OAuth Protocol  -->
 	        <dependency>
 	            <groupId>org.pac4j</groupId>
@@ -424,6 +431,11 @@
         <dependency>
 		    <groupId>org.pac4j</groupId>
 		    <artifactId>pac4j-config</artifactId>
+		</dependency>
+		<!-- PAC4J For HTTP Protocol  -->
+		<dependency>
+			<groupId>org.pac4j</groupId>
+			<artifactId>pac4j-http</artifactId>
 		</dependency>
 		<!-- PAC4J For OAuth Protocol  -->
         <dependency>
