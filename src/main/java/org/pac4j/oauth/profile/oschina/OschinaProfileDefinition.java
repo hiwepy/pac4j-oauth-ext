@@ -1,6 +1,5 @@
 package org.pac4j.oauth.profile.oschina;
 
-import org.pac4j.core.exception.http.HttpAction;
 import org.pac4j.core.profile.AttributeLocation;
 import org.pac4j.core.profile.converter.Converters;
 import org.pac4j.oauth.config.OAuthConfiguration;
@@ -41,7 +40,7 @@ public class OschinaProfileDefinition extends OAuthProfileDefinition {
 	}
 
 	@Override
-	public OschinaProfile extractUserProfile(String body) throws HttpAction {
+	public OschinaProfile extractUserProfile(String body) {
 		/*
 		 {
 		    id: 899**,

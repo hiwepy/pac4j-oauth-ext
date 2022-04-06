@@ -1,6 +1,5 @@
 package org.pac4j.oauth.profile.baidu;
 
-import org.pac4j.core.exception.http.HttpAction;
 import org.pac4j.core.profile.AttributeLocation;
 import org.pac4j.core.profile.converter.Converters;
 import org.pac4j.oauth.config.OAuthConfiguration;
@@ -102,7 +101,7 @@ public class BaiduProfileDefinition extends OAuthProfileDefinition  {
 		}
 	 * */
 	@Override
-	public BaiduProfile extractUserProfile(String body) throws HttpAction {
+	public BaiduProfile extractUserProfile(String body) {
 		final BaiduProfile profile = new BaiduProfile();
         JsonNode json = JsonHelper.getFirstNode(body);
         if (json != null && JsonHelper.getElement(json, "error_code") == null) {

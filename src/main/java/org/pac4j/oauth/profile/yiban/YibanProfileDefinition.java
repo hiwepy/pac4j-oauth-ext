@@ -19,19 +19,13 @@ import static org.pac4j.core.profile.AttributeLocation.PROFILE_ATTRIBUTE;
 
 import java.util.Arrays;
 
-import org.pac4j.core.exception.http.HttpAction;
 import org.pac4j.core.profile.ProfileHelper;
 import org.pac4j.core.profile.converter.Converters;
-import org.pac4j.core.util.CommonHelper;
-import org.pac4j.oauth.config.OAuth20Configuration;
 import org.pac4j.oauth.config.OAuthConfiguration;
 import org.pac4j.oauth.profile.JsonHelper;
 import org.pac4j.oauth.profile.definition.OAuthProfileDefinition;
-import org.pac4j.scribe.model.WeiboToken;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.github.scribejava.core.exceptions.OAuthException;
-import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.github.scribejava.core.model.Token;
 
 /**
@@ -237,7 +231,7 @@ public class YibanProfileDefinition extends OAuthProfileDefinition {
     }
 
     @Override
-    public YibanProfile extractUserProfile(final String body) throws HttpAction {
+    public YibanProfile extractUserProfile(final String body) {
         final YibanProfile profile = new YibanProfile();
         final JsonNode json = JsonHelper.getFirstNode(body);
         if (json != null) {
