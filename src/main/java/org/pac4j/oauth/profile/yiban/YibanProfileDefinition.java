@@ -19,18 +19,14 @@ import static org.pac4j.core.profile.AttributeLocation.PROFILE_ATTRIBUTE;
 
 import java.util.Arrays;
 
-import org.pac4j.core.exception.http.HttpAction;
 import org.pac4j.core.profile.ProfileHelper;
 import org.pac4j.core.profile.converter.Converters;
-import org.pac4j.core.util.CommonHelper;
-import org.pac4j.oauth.config.OAuth20Configuration;
+import org.pac4j.oauth.config.OAuthConfiguration;
 import org.pac4j.oauth.profile.JsonHelper;
-import org.pac4j.oauth.profile.definition.OAuth20ProfileDefinition;
-import org.pac4j.scribe.model.WeiboToken;
+import org.pac4j.oauth.profile.definition.OAuthProfileDefinition;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.github.scribejava.core.exceptions.OAuthException;
-import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.github.scribejava.core.model.Token;
 
 /**
  * This class is the  Yiban profile definition (using OAuth 2.0 protocol).
@@ -38,7 +34,9 @@ import com.github.scribejava.core.model.OAuth2AccessToken;
  *
  * @author 		： <a href="https://github.com/hiwepy">wandl</a>
  */
-public class YibanProfileDefinition extends OAuth20ProfileDefinition<YibanProfile, OAuth20Configuration> {
+public class YibanProfileDefinition extends OAuthProfileDefinition {
+
+    public static final String PROFILE_ME_URL = "https://openapi.yiban.cn/user/me?access_token=%s";
 
     /**
      * int64    User UID
@@ -228,30 +226,23 @@ public class YibanProfileDefinition extends OAuth20ProfileDefinition<YibanProfil
     }
 
     @Override
-    public String getProfileUrl(final OAuth2AccessToken accessToken,
-                                final OAuth20Configuration configuration) {
-        if (accessToken instanceof WeiboToken) {
-            return CommonHelper.addParameter("https://api.weibo.com/2/users/show.json", "uid",
-                ((WeiboToken) accessToken).getUid());
-        } else
-            throw new OAuthException("Token in getProfileUrl is not an WeiboToken");
+    public String getProfileUrl(Token accessToken, OAuthConfiguration configuration) {
+        return String.format(PROFILE_ME_URL, accessToken.getRawResponse());
     }
 
     @Override
-    public YibanProfile extractUserProfile(final String body) throws HttpAction {
+    public YibanProfile extractUserProfile(final String body) {
         final YibanProfile profile = new YibanProfile();
         final JsonNode json = JsonHelper.getFirstNode(body);
         if (json != null) {
-            profile.setId(
-                ProfileHelper.sanitizeIdentifier(profile, JsonHelper.getElement(json, "id")));
+            profile.setId(ProfileHelper.sanitizeIdentifier(JsonHelper.getElement(json, ID)));
             for (final String attribute : getPrimaryAttributes()) {
-                convertAndAdd(profile, PROFILE_ATTRIBUTE, attribute,
-                    JsonHelper.getElement(json, attribute));
+                convertAndAdd(profile, PROFILE_ATTRIBUTE, attribute, JsonHelper.getElement(json, attribute));
             }
         } else {
             raiseProfileExtractionJsonError(body);
         }
         return profile;
     }
-    
+
 }

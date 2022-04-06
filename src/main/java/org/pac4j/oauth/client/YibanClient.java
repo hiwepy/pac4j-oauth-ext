@@ -59,15 +59,15 @@ public class YibanClient extends OAuth20Client {
         setKey(key);
         setSecret(secret);
     }
-
+    
     @Override
-    protected void clientInit() {
+    protected void internalInit(final boolean forceReinit) {
+        super.internalInit(forceReinit);
         configuration.setApi(YibanApi20.instance());
         configuration.setScope(getOAuthScope());
         configuration.setProfileDefinition(new YibanProfileDefinition());
         configuration.setWithState(true);
         defaultProfileCreator(new YibanProfileCreator(configuration, this));
-        super.clientInit();
     }
 
     protected String getOAuthScope() {

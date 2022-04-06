@@ -3,7 +3,7 @@ package org.pac4j.oauth.profile.baidu;
 import org.pac4j.core.profile.Gender;
 import org.pac4j.core.profile.converter.AbstractAttributeConverter;
 
-public class BaiduGenderConverter extends AbstractAttributeConverter<Gender> {
+public class BaiduGenderConverter extends AbstractAttributeConverter {
 
     public BaiduGenderConverter() {
         super(Gender.class);
