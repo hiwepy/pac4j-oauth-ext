@@ -236,8 +236,8 @@ public class YibanProfileDefinition extends OAuthProfileDefinition {
         final JsonNode json = JsonHelper.getFirstNode(body);
         if (json != null) {
             profile.setId(JsonHelper.getElement(json, ID).toString());
-            for (final String attribute : getPrimaryAttributes()) {
-                convertAndAdd(profile, PROFILE_ATTRIBUTE, attribute, JsonHelper.getElement(json, attribute));
+            for (final Object attribute : getPrimaryAttributes()) {
+                convertAndAdd(profile, PROFILE_ATTRIBUTE, attribute.toString(), JsonHelper.getElement(json, attribute.toString()));
             }
         } else {
             raiseProfileExtractionJsonError(body);

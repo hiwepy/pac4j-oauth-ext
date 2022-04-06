@@ -63,8 +63,8 @@ public class OschinaProfileDefinition extends OAuthProfileDefinition {
         JsonNode json = JsonHelper.getFirstNode(body);
         if (json != null && JsonHelper.getElement(json, "error") == null) {
             profile.setId(JsonHelper.getElement(json, ID).toString());
-            for (final String attribute : getPrimaryAttributes()) {
-				convertAndAdd(profile, AttributeLocation.PROFILE_ATTRIBUTE, attribute, JsonHelper.getElement(json, attribute));
+            for (final Object attribute : getPrimaryAttributes()) {
+				convertAndAdd(profile, AttributeLocation.PROFILE_ATTRIBUTE, attribute.toString(), JsonHelper.getElement(json, attribute.toString()));
 			}
         } else {
             raiseProfileExtractionJsonError(body);
