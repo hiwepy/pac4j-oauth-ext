@@ -42,6 +42,8 @@ import com.github.scribejava.core.model.Token;
  */
 public class YibanProfileDefinition extends OAuthProfileDefinition {
 
+    public static final String PROFILE_ME_URL = "https://openapi.yiban.cn/user/me?access_token=%s";
+
     /**
      * int64    User UID
      */
@@ -231,11 +233,7 @@ public class YibanProfileDefinition extends OAuthProfileDefinition {
 
     @Override
     public String getProfileUrl(Token accessToken, OAuthConfiguration configuration) {
-        if (accessToken instanceof WeiboToken) {
-            return CommonHelper.addParameter("https://api.weibo.com/2/users/show.json", "uid",
-                ((WeiboToken) accessToken).getUid());
-        } else
-            throw new OAuthException("Token in getProfileUrl is not an WeiboToken");
+        return String.format(PROFILE_ME_URL, accessToken.getRawResponse());
     }
 
     @Override
@@ -243,15 +241,14 @@ public class YibanProfileDefinition extends OAuthProfileDefinition {
         final YibanProfile profile = new YibanProfile();
         final JsonNode json = JsonHelper.getFirstNode(body);
         if (json != null) {
-            profile.setId(ProfileHelper.sanitizeIdentifier(JsonHelper.getElement(json, "id")));
+            profile.setId(ProfileHelper.sanitizeIdentifier(JsonHelper.getElement(json, ID)));
             for (final String attribute : getPrimaryAttributes()) {
-                convertAndAdd(profile, PROFILE_ATTRIBUTE, attribute,
-                    JsonHelper.getElement(json, attribute));
+                convertAndAdd(profile, PROFILE_ATTRIBUTE, attribute, JsonHelper.getElement(json, attribute));
             }
         } else {
             raiseProfileExtractionJsonError(body);
         }
         return profile;
     }
-    
+
 }

@@ -5,8 +5,11 @@ import java.net.URI;
 import org.pac4j.core.profile.Gender;
 import org.pac4j.oauth.profile.OAuth20Profile;
 
-/*
+/**
+ * <p>This class is the user profile for Baidu (using OAuth protocol version 2) with appropriate getters.</p>
+ * <p>It is returned by the {@link org.pac4j.oauth.client.BaiduClient}.</p>
  * http://developer.baidu.com/wiki/index.php?title=docs/oauth/rest/file_data_apis_list
+ * @author 		： <a href="https://github.com/hiwepy">wandl</a>
  */
 public class BaiduProfile extends OAuth20Profile {
 
@@ -92,5 +95,5 @@ public class BaiduProfile extends OAuth20Profile {
 	public String getJob() {
 		return (String) getAttribute(BaiduProfileDefinition.JOB);
 	}
-	 
+
 }

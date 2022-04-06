@@ -1,6 +1,7 @@
 package org.pac4j.oauth.profile.baidu;
 
 import org.pac4j.core.exception.http.HttpAction;
+import org.pac4j.core.profile.AttributeLocation;
 import org.pac4j.core.profile.converter.Converters;
 import org.pac4j.oauth.config.OAuthConfiguration;
 import org.pac4j.oauth.profile.JsonHelper;
@@ -15,7 +16,7 @@ import com.github.scribejava.core.model.Token;
 public class BaiduProfileDefinition extends OAuthProfileDefinition  {
 
 	public static final String PROFILE_URL = "https://openapi.baidu.com/rest/2.0/passport/users/getInfo?access_token=%s";
-	   
+
 	/** 当前登录用户的数字ID */
     public static final String USER_ID = "userid";
     /** 当前登录用户的用户名，值可能为空。 */
@@ -28,10 +29,11 @@ public class BaiduProfileDefinition extends OAuthProfileDefinition  {
 	 *	large image: http://tb.himg.baidu.com/sys/portrait/item/{$portrait}
      */
     public static final String PORTRAIT = "portrait";
-    public static final String PORTRAIT_URL = "http://tb.himg.baidu.com/sys/portrait/item/%s";
-    public static final String PORTRAIT_SMALL_URL = "portrait_small_url";
- 	public static final String PORTRAIT_LARGE_URL = "portrait_large_url";
-    
+    public static final String PORTRAIT_SMALL = "portrait_small_url";
+ 	public static final String PORTRAIT_LARGE = "portrait_large_url";
+    public static final String PORTRAIT_SMALL_URL = "https://tb.himg.baidu.com/sys/portraitn/item/%s";
+    public static final String PORTRAIT_LARGE_URL = "https://tb.himg.baidu.com/sys/portrait/item/%s";
+
     /** 自我简介，可能为空。 */
     public static final String USER_DETAIL = "userdetail";
     /** 生日，以yyyy-mm-dd格式显示。 */
@@ -52,11 +54,12 @@ public class BaiduProfileDefinition extends OAuthProfileDefinition  {
     public static final String TRADE = "trade";
     /** 职位  */
     public static final String JOB = "job";
-    
+
     public BaiduProfileDefinition() {
     	primary(USER_ID, Converters.STRING);
         primary(USER_NAME, Converters.STRING);
         primary(REAL_NAME, Converters.STRING);
+        primary(PORTRAIT, Converters.STRING);
         primary(USER_DETAIL, Converters.STRING);
         primary(BIRTHDAY, Converters.STRING);
         primary(MARRIAGE, Converters.STRING);
@@ -67,8 +70,8 @@ public class BaiduProfileDefinition extends OAuthProfileDefinition  {
         primary(EDUCATION, Converters.STRING);
         primary(TRADE, Converters.STRING);
         primary(JOB, Converters.STRING);
-        secondary(PORTRAIT_LARGE_URL, Converters.URL);
-        secondary(PORTRAIT_SMALL_URL, Converters.URL);
+        secondary(PORTRAIT_LARGE, Converters.URL);
+        secondary(PORTRAIT_SMALL, Converters.URL);
     }
 
 	@Override
@@ -77,7 +80,7 @@ public class BaiduProfileDefinition extends OAuthProfileDefinition  {
 	}
 
 	/**
-	 * 
+	 *
 	 * JSON数据格式
 		{
 		    "userid":"2097322476",
@@ -102,19 +105,19 @@ public class BaiduProfileDefinition extends OAuthProfileDefinition  {
 	public BaiduProfile extractUserProfile(String body) throws HttpAction {
 		final BaiduProfile profile = new BaiduProfile();
         JsonNode json = JsonHelper.getFirstNode(body);
-        
-        /*if (json != null && JsonHelper.getElement(json, "error_code") == null) {
+        if (json != null && JsonHelper.getElement(json, "error_code") == null) {
         	// 当前登录用户的数字ID
-            profile.setId(JsonHelper.getElement(json, USER_ID));
+            profile.setId(JsonHelper.getElement(json, USER_ID).toString());
             // 主要属性
             for (final String attribute : getPrimaryAttributes()) {
-				convertAndAdd(profile, attribute, JsonHelper.getElement(json, attribute));
+				convertAndAdd(profile, AttributeLocation.PROFILE_ATTRIBUTE, attribute, JsonHelper.getElement(json, attribute));
 			}
             // 次要属性
-            for (final String attribute : getSecondaryAttributes()) {
-				convertAndAdd(profile, attribute, String.format(PORTRAIT_URL, JsonHelper.getElement(json, PORTRAIT).toString()) );
-			}
-        }*/
+            convertAndAdd(profile, AttributeLocation.PROFILE_ATTRIBUTE, PORTRAIT_SMALL, String.format(PORTRAIT_SMALL_URL, JsonHelper.getElement(json, PORTRAIT).toString()) );
+            convertAndAdd(profile, AttributeLocation.PROFILE_ATTRIBUTE, PORTRAIT_LARGE, String.format(PORTRAIT_LARGE_URL, JsonHelper.getElement(json, PORTRAIT).toString()) );
+        } else {
+            raiseProfileExtractionJsonError(body);
+        }
         return profile;
 	}
 }
