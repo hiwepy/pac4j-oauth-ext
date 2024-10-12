@@ -18,6 +18,7 @@ package org.pac4j.scribe.model;
 import org.pac4j.core.util.CommonHelper;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
+import org.pac4j.util.MyCommonHelper;
 
 /**
  * Yiban token extra.
@@ -76,6 +77,7 @@ public class YibanToken extends OAuth2AccessToken {
 
     @Override
     public String toString() {
-        return CommonHelper.toNiceString(YibanToken.class, "accessToken", getAccessToken(), "userid", userid);
+        return MyCommonHelper.toNiceString(YibanToken.class, "accessToken", getAccessToken(), "userid", userid);
     }
+
 }

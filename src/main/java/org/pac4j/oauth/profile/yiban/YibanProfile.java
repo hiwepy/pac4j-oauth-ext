@@ -64,7 +64,7 @@ public class YibanProfile extends OAuth20Profile {
         if (attribute.isAbsolute()) {
             return attribute;
         } else {
-            return CommonHelper.asURI("http://weibo.com/" + attribute.toString());
+            return CommonHelper.asURI("https://openapi.yiban.cn/" + attribute);
         }
     }
 }
