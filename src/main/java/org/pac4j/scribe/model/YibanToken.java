@@ -76,7 +76,6 @@ public class YibanToken extends OAuth2AccessToken {
 
     @Override
     public String toString() {
-        return CommonHelper.toNiceString(YibanToken.class, "accessToken", getAccessToken(),
-            "userid", userid);
+        return CommonHelper.toNiceString(YibanToken.class, "accessToken", getAccessToken(), "userid", userid);
     }
 }
