@@ -38,13 +38,12 @@ public class OschinaClient extends OAuth20Client {
     }
 
     @Override
-    protected void internalInit(final boolean forceReinit) {
-        super.internalInit(forceReinit);
+    protected void clientInit() {
         configuration.setApi(OschinaApi20.instance());
         configuration.setScope(getOAuthScope());
         configuration.setProfileDefinition(new OschinaProfileDefinition());
         configuration.setWithState(true);
-        setProfileCreatorIfUndefined(new OschinaProfileCreator(configuration, this));
+        setProfileCreator(new OschinaProfileCreator(configuration, this));
     }
 
     protected String getOAuthScope() {

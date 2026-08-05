@@ -1,5 +1,7 @@
 package org.pac4j.oauth.profile.oschina;
 
+import com.github.scribejava.core.oauth.OAuth20Service;
+import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Token;
 import com.github.scribejava.core.oauth.OAuthService;
@@ -14,7 +16,7 @@ public class OschinaProfileCreator extends OAuth20ProfileCreator {
 	}
 
 	@Override
-	protected void signRequest(OAuthService service, Token token, OAuthRequest request) {
+	protected void signRequest(OAuth20Service service, OAuth2AccessToken token, OAuthRequest request) {
 		super.signRequest(service, token, request);
 		// 指定返回值类型['json'|'jsonp'|'xml']
 		request.addQuerystringParameter("dataType", "json");

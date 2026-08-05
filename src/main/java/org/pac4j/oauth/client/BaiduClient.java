@@ -38,13 +38,12 @@ public class BaiduClient extends OAuth20Client {
     }
 
     @Override
-    protected void internalInit(final boolean forceReinit) {
-        super.internalInit(forceReinit);
+    protected void clientInit() {
         configuration.setApi(BaiduApi20.instance());
         configuration.setScope(getOAuthScope());
         configuration.setProfileDefinition(new BaiduProfileDefinition());
         configuration.setWithState(true);
-        setProfileCreatorIfUndefined(new BaiduProfileCreator(configuration, this));
+        setProfileCreator(new BaiduProfileCreator(configuration, this));
     }
 
     protected String getOAuthScope() {
