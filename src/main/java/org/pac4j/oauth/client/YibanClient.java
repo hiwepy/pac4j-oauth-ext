@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, hiwepy (https://github.com/hiwepy).
+ * Copyright (c) 2018, Loong Wan (https://github.com/loong10k).
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -30,7 +30,7 @@ import org.pac4j.scribe.builder.api.YibanApi20;
  * "https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419316505&token=&lang=zh_CN">
  * WeChat login development guide</a></p>
  *
- * @author 		： <a href="https://github.com/hiwepy">wandl</a>
+ * @author [@Loong Wan](https://github.com/loong10k)
  */
 public class YibanClient extends OAuth20Client {
 
@@ -59,7 +59,8 @@ public class YibanClient extends OAuth20Client {
         setKey(key);
         setSecret(secret);
     }
-    
+
+
     @Override
     protected void internalInit(final boolean forceReinit) {
         super.internalInit(forceReinit);
@@ -67,7 +68,7 @@ public class YibanClient extends OAuth20Client {
         configuration.setScope(getOAuthScope());
         configuration.setProfileDefinition(new YibanProfileDefinition());
         configuration.setWithState(true);
-        defaultProfileCreator(new YibanProfileCreator(configuration, this));
+        setProfileCreatorIfUndefined(new YibanProfileCreator(configuration, this));
     }
 
     protected String getOAuthScope() {

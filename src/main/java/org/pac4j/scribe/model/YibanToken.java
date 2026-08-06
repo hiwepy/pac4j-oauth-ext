@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, hiwepy (https://github.com/hiwepy).
+ * Copyright (c) 2018, Loong Wan (https://github.com/loong10k).
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -18,11 +18,12 @@ package org.pac4j.scribe.model;
 import org.pac4j.core.util.CommonHelper;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
+import org.pac4j.util.MyCommonHelper;
 
 /**
  * Yiban token extra.
  * <p>More info at: <a href="https://open.yiban.cn/wiki/index.php?page=oauth/access_token"> access_token</a></p>
- * @author 		： <a href="https://github.com/hiwepy">wandl</a>
+ * @author [@Loong Wan](https://github.com/loong10k)
  */
 public class YibanToken extends OAuth2AccessToken {
 
@@ -76,7 +77,7 @@ public class YibanToken extends OAuth2AccessToken {
 
     @Override
     public String toString() {
-        return CommonHelper.toNiceString(YibanToken.class, "accessToken", getAccessToken(),
-            "userid", userid);
+        return MyCommonHelper.toNiceString(YibanToken.class, "accessToken", getAccessToken(), "userid", userid);
     }
+
 }

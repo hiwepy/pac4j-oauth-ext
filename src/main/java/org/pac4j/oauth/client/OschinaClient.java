@@ -44,7 +44,7 @@ public class OschinaClient extends OAuth20Client {
         configuration.setScope(getOAuthScope());
         configuration.setProfileDefinition(new OschinaProfileDefinition());
         configuration.setWithState(true);
-        defaultProfileCreator(new OschinaProfileCreator(configuration, this));
+        setProfileCreatorIfUndefined(new OschinaProfileCreator(configuration, this));
     }
 
     protected String getOAuthScope() {

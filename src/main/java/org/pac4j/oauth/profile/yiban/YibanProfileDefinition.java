@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, hiwepy (https://github.com/hiwepy).
+ * Copyright (c) 2018, Loong Wan (https://github.com/loong10k).
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -32,7 +32,7 @@ import com.github.scribejava.core.model.Token;
  * This class is the  Yiban profile definition (using OAuth 2.0 protocol).
  * <p>More info at: <a href="https://open.yiban.cn/wiki/index.php?page=user/real_me">user/real_me</a></p>
  *
- * @author 		： <a href="https://github.com/hiwepy">wandl</a>
+ * @author [@Loong Wan](https://github.com/loong10k)
  */
 public class YibanProfileDefinition extends OAuthProfileDefinition {
 
@@ -235,9 +235,9 @@ public class YibanProfileDefinition extends OAuthProfileDefinition {
         final YibanProfile profile = new YibanProfile();
         final JsonNode json = JsonHelper.getFirstNode(body);
         if (json != null) {
-            profile.setId(ProfileHelper.sanitizeIdentifier(JsonHelper.getElement(json, ID)));
-            for (final String attribute : getPrimaryAttributes()) {
-                convertAndAdd(profile, PROFILE_ATTRIBUTE, attribute, JsonHelper.getElement(json, attribute));
+            profile.setId(JsonHelper.getElement(json, ID).toString());
+            for (final Object attribute : getPrimaryAttributes()) {
+                convertAndAdd(profile, PROFILE_ATTRIBUTE, attribute.toString(), JsonHelper.getElement(json, attribute.toString()));
             }
         } else {
             raiseProfileExtractionJsonError(body);

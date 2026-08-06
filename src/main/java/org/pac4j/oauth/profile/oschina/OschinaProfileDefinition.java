@@ -1,6 +1,7 @@
 package org.pac4j.oauth.profile.oschina;
 
 import org.pac4j.core.profile.AttributeLocation;
+import org.pac4j.core.profile.ProfileHelper;
 import org.pac4j.core.profile.converter.Converters;
 import org.pac4j.oauth.config.OAuthConfiguration;
 import org.pac4j.oauth.profile.JsonHelper;
@@ -61,9 +62,9 @@ public class OschinaProfileDefinition extends OAuthProfileDefinition {
         final OschinaProfile profile = new OschinaProfile();
         JsonNode json = JsonHelper.getFirstNode(body);
         if (json != null && JsonHelper.getElement(json, "error") == null) {
-            profile.setId(JsonHelper.getElement(json, "id").toString());
-            for (final String attribute : getPrimaryAttributes()) {
-				convertAndAdd(profile, AttributeLocation.PROFILE_ATTRIBUTE, attribute, JsonHelper.getElement(json, attribute));
+            profile.setId(JsonHelper.getElement(json, ID).toString());
+            for (final Object attribute : getPrimaryAttributes()) {
+				convertAndAdd(profile, AttributeLocation.PROFILE_ATTRIBUTE, attribute.toString(), JsonHelper.getElement(json, attribute.toString()));
 			}
         } else {
             raiseProfileExtractionJsonError(body);

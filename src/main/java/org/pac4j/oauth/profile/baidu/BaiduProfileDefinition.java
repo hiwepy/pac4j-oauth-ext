@@ -108,8 +108,8 @@ public class BaiduProfileDefinition extends OAuthProfileDefinition  {
         	// 当前登录用户的数字ID
             profile.setId(JsonHelper.getElement(json, USER_ID).toString());
             // 主要属性
-            for (final String attribute : getPrimaryAttributes()) {
-				convertAndAdd(profile, AttributeLocation.PROFILE_ATTRIBUTE, attribute, JsonHelper.getElement(json, attribute));
+            for (final Object attribute : getPrimaryAttributes()) {
+				convertAndAdd(profile, AttributeLocation.PROFILE_ATTRIBUTE, attribute.toString(), JsonHelper.getElement(json, attribute.toString()));
 			}
             // 次要属性
             convertAndAdd(profile, AttributeLocation.PROFILE_ATTRIBUTE, PORTRAIT_SMALL, String.format(PORTRAIT_SMALL_URL, JsonHelper.getElement(json, PORTRAIT).toString()) );
