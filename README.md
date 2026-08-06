@@ -2,6 +2,8 @@
 
 [English](./README.md) | [简体中文](./README.zh-CN.md)
 
+[![Java](https://img.shields.io/badge/Java-8-orange)](https://github.com/easy-4-java/pac4j-oauth-ext) [![License](https://img.shields.io/badge/license-Apache%202.0-green)](./LICENSE)
+
 pac4j OAuth extension: Baidu, OSChina and Yiban OAuth 2.0 clients with profiles, scribe API bindings and services
 [简体中文](./README.zh-CN.md)
 
