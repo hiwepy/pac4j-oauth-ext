@@ -2,6 +2,8 @@
 
 [English](./README.md) | [简体中文](./README.zh-CN.md)
 
+[![Java](https://img.shields.io/badge/Java-21-orange)](https://github.com/easy-4-java/pac4j-oauth-ext) [![License](https://img.shields.io/badge/license-Apache%202.0-green)](./LICENSE)
+
 pac4j OAuth 扩展：百度、OSChina 与易班 OAuth 2.0 客户端、档案与 scribe API 绑定
 
 > **当前分支**：`feature/3.0.x`
