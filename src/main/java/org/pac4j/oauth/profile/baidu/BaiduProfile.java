@@ -9,7 +9,7 @@ import org.pac4j.oauth.profile.OAuth20Profile;
  * <p>This class is the user profile for Baidu (using OAuth protocol version 2) with appropriate getters.</p>
  * <p>It is returned by the {@link org.pac4j.oauth.client.BaiduClient}.</p>
  * http://developer.baidu.com/wiki/index.php?title=docs/oauth/rest/file_data_apis_list
- * @author 		： <a href="https://github.com/hiwepy">wandl</a>
+ * @author [@Loong Wan](https://github.com/loong10k)
  */
 public class BaiduProfile extends OAuth20Profile {
 
