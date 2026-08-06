@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, hiwepy (https://github.com/hiwepy).
+ * Copyright (c) 2018, Loong Wan (https://github.com/loong10k).
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -27,7 +27,7 @@ import org.pac4j.oauth.profile.weibo.WeiboProfileDefinition;
  * <p>This class is the user profile for Yiban (using OAuth protocol version 2) with appropriate getters.</p>
  * <p>It is returned by the {@link org.pac4j.oauth.client.YibanClient}.</p>
  *
- * @author 		： <a href="https://github.com/hiwepy">wandl</a>
+ * @author [@Loong Wan](https://github.com/loong10k)
  */
 public class YibanProfile extends OAuth20Profile {
 
